@@ -23,21 +23,8 @@ function Isotipo({ className = "" }: { className?: string }) {
       className={className}
     >
       <rect width="48" height="48" rx="12" fill="#EA580C" />
-      <path
-        d="M11 15 L20 24 L11 33"
-        stroke="white"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M22 15 L31 24 L22 33"
-        stroke="white"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.5"
-      />
+      <path d="M11 15 L20 24 L11 33" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M22 15 L31 24 L22 33" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
     </svg>
   );
 }
@@ -53,36 +40,33 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 transition-all duration-300 ${
         scrolled ? "navbar-glass" : "navbar-transparent"
       }`}
+      style={{ zIndex: 50 }}
     >
-      <nav
-        className="container-main flex items-center justify-between h-18 py-3"
-        aria-label="Navegación principal"
-      >
-        {/* Logo */}
+      <nav className="container-main flex items-center justify-between py-3 h-18" aria-label="Navegación principal">
         <Link href="/" className="flex items-center gap-2.5 group" aria-label="Driva Dev — Inicio">
           <Isotipo className="transition-transform group-hover:scale-110" />
-          <span className="text-lg font-bold text-titulares leading-none">
+          <span className="text-lg font-bold text-white leading-none">
             Driva<span className="text-principal">Dev</span>
           </span>
         </Link>
 
-        {/* Desktop links */}
+        {/* Desktop */}
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
               className={`text-sm font-medium transition-colors hover:text-principal ${
-                pathname === href ? "text-principal border-b-2 border-principal pb-0.5" : "text-texto"
+                pathname === href
+                  ? "text-principal border-b-2 border-principal pb-0.5"
+                  : "text-white/65"
               }`}
               aria-current={pathname === href ? "page" : undefined}
             >
@@ -96,7 +80,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded-lg text-titulares hover:bg-acento transition-colors"
+          className="md:hidden p-2 rounded-lg text-white/70 hover:text-white transition-colors"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
@@ -113,14 +97,12 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden navbar-glass border-t border-acento px-6 py-6 flex flex-col gap-5">
+        <div className="md:hidden navbar-glass border-t border-white/10 px-6 py-6 flex flex-col gap-5">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className={`text-base font-medium ${
-                pathname === href ? "text-principal" : "text-texto"
-              }`}
+              className={`text-base font-medium ${pathname === href ? "text-principal" : "text-white/70"}`}
               aria-current={pathname === href ? "page" : undefined}
             >
               {label}

@@ -44,7 +44,7 @@ export default function ContactForm() {
       noValidate
     >
       <div>
-        <label htmlFor="nombre" className="block text-sm font-medium text-texto mb-1.5">
+        <label htmlFor="nombre" className="block text-sm font-medium text-white/70 mb-1.5">
           Nombre
         </label>
         <input
@@ -55,13 +55,13 @@ export default function ContactForm() {
           value={form.nombre}
           onChange={handleChange}
           placeholder="Tu nombre completo"
-          className="w-full px-4 py-3 rounded-xl border border-acento bg-white text-texto placeholder:text-texto/40 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition"
+          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition"
           aria-required="true"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-texto mb-1.5">
+        <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-1.5">
           Email
         </label>
         <input
@@ -72,13 +72,13 @@ export default function ContactForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="tu@email.com"
-          className="w-full px-4 py-3 rounded-xl border border-acento bg-white text-texto placeholder:text-texto/40 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition"
+          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition"
           aria-required="true"
         />
       </div>
 
       <div>
-        <label htmlFor="mensaje" className="block text-sm font-medium text-texto mb-1.5">
+        <label htmlFor="mensaje" className="block text-sm font-medium text-white/70 mb-1.5">
           Mensaje
         </label>
         <textarea
@@ -89,7 +89,7 @@ export default function ContactForm() {
           value={form.mensaje}
           onChange={handleChange}
           placeholder="Contanos sobre tu proyecto o idea..."
-          className="w-full px-4 py-3 rounded-xl border border-acento bg-white text-texto placeholder:text-texto/40 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition resize-none"
+          className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition resize-none"
           aria-required="true"
         />
       </div>

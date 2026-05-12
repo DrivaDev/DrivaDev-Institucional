@@ -3,6 +3,7 @@ import { Fira_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SpaceParticles from "@/components/SpaceParticles";
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
@@ -25,22 +26,22 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Driva Dev" }],
   },
-  twitter: {
-    card: "summary_large_image",
-  },
+  twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
-  icons: {
-    icon: "/isotipo.svg",
-    apple: "/isotipo.svg",
-  },
+  icons: { icon: "/isotipo.svg", apple: "/isotipo.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={firaSans.variable}>
-      <body className="font-sans bg-fondo text-texto antialiased">
+      <body className="font-sans antialiased">
+        {/* Fixed space background — spans entire viewport */}
+        <SpaceParticles />
+
         <Navbar />
-        <main id="main-content">{children}</main>
+        <main id="main-content" className="relative" style={{ zIndex: 1 }}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

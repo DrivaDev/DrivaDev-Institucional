@@ -19,32 +19,31 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-texto text-fondo" aria-label="Pie de página">
+    <footer
+      className="relative border-t border-white/10"
+      style={{ background: "rgba(5,5,15,0.95)", zIndex: 1 }}
+      aria-label="Pie de página"
+    >
       <div className="container-main py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
-          {/* Brand */}
           <div className="space-y-3">
             <div className="flex items-center gap-2.5">
               <Isotipo />
-              <span className="text-lg font-bold text-fondo">
+              <span className="text-lg font-bold text-white">
                 Driva<span className="text-principal">Dev</span>
               </span>
             </div>
-            <p className="text-sm text-fondo/60 leading-relaxed max-w-xs">
+            <p className="text-sm text-white/50 leading-relaxed max-w-xs">
               Tu presencia online, construida para crecer. Desarrollo web a medida para empresas y emprendedores.
             </p>
           </div>
 
-          {/* Nav */}
           <nav aria-label="Navegación secundaria">
-            <p className="text-xs font-bold uppercase tracking-widest text-fondo/40 mb-4">Páginas</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-4">Páginas</p>
             <ul className="space-y-2.5">
               {navLinks.map(({ label, href }) => (
                 <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-sm text-fondo/70 hover:text-principal transition-colors"
-                  >
+                  <Link href={href} className="text-sm text-white/55 hover:text-principal transition-colors">
                     {label}
                   </Link>
                 </li>
@@ -52,16 +51,15 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Contact */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-fondo/40 mb-4">Contacto rápido</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-white/30 mb-4">Contacto rápido</p>
             <ul className="space-y-3">
               <li>
                 <a
                   href="https://wa.me/5491139139022"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-fondo/70 hover:text-principal transition-colors"
+                  className="flex items-center gap-2 text-sm text-white/55 hover:text-principal transition-colors"
                   aria-label="WhatsApp Driva Dev"
                 >
                   <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -73,7 +71,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:driva.devv@gmail.com"
-                  className="flex items-center gap-2 text-sm text-fondo/70 hover:text-principal transition-colors"
+                  className="flex items-center gap-2 text-sm text-white/55 hover:text-principal transition-colors"
                   aria-label="Email Driva Dev"
                 >
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +84,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-fondo/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-fondo/40">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
           <p>© 2025 Driva Dev. Todos los derechos reservados.</p>
           <p>
             Desarrollado por{" "}
