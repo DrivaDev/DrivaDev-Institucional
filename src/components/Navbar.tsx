@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -10,24 +11,6 @@ const navLinks = [
   { label: "Portafolio", href: "/portafolio" },
   { label: "Contacto", href: "/contacto" },
 ];
-
-function Isotipo({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      width="36"
-      height="36"
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className={className}
-    >
-      <rect width="48" height="48" rx="12" fill="#EA580C" />
-      <path d="M11 15 L20 24 L11 33" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M22 15 L31 24 L22 33" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
-    </svg>
-  );
-}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -51,7 +34,14 @@ export default function Navbar() {
     >
       <nav className="container-main flex items-center justify-between py-3 h-18" aria-label="Navegación principal">
         <Link href="/" className="flex items-center gap-2.5 group" aria-label="Driva Dev — Inicio">
-          <Isotipo className="transition-transform group-hover:scale-110" />
+          <Image
+            src="/isotipo.svg"
+            alt="Driva Dev"
+            width={36}
+            height={36}
+            className="transition-transform group-hover:scale-110"
+            priority
+          />
           <span className="text-lg font-bold text-white leading-none">
             Driva<span className="text-principal">Dev</span>
           </span>

@@ -1,14 +1,5 @@
 import Link from "next/link";
-
-function Isotipo() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="48" height="48" rx="12" fill="#EA580C" />
-      <path d="M11 15 L20 24 L11 33" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M22 15 L31 24 L22 33" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
-    </svg>
-  );
-}
+import Image from "next/image";
 
 const navLinks = [
   { label: "Inicio", href: "/" },
@@ -21,14 +12,14 @@ export default function Footer() {
   return (
     <footer
       className="relative border-t border-white/10"
-      style={{ background: "rgba(5,5,15,0.95)", zIndex: 1 }}
+      style={{ background: "rgba(28,25,23,0.95)", zIndex: 1 }}
       aria-label="Pie de página"
     >
       <div className="container-main py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div className="space-y-3">
             <div className="flex items-center gap-2.5">
-              <Isotipo />
+              <Image src="/isotipo.svg" alt="Driva Dev" width={32} height={32} />
               <span className="text-lg font-bold text-white">
                 Driva<span className="text-principal">Dev</span>
               </span>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
-import Hero3DWrapper from "@/components/Hero3DWrapper";
 
 export const metadata: Metadata = {
   title: "Driva Dev — Tu presencia online, construida para crecer",
@@ -96,10 +95,7 @@ export default function HomePage() {
     <>
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <Hero3DWrapper />
-
-        {/* Dark gradient so text stays readable over the 3D canvas */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#05050f]/95 via-[#05050f]/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1917]/90 via-[#1C1917]/50 to-transparent pointer-events-none" />
 
         <div className="container-main relative pt-28 pb-20" style={{ zIndex: 2 }}>
           <div className="max-w-2xl">
@@ -148,7 +144,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICIOS PREVIEW ===== */}
-      <section className="section section-alt" aria-labelledby="servicios-heading">
+      <section className="section" aria-labelledby="servicios-heading">
         <div className="container-main">
           <ScrollReveal>
             <div className="text-center mb-14">
@@ -248,7 +244,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== POR QUÉ ELEGIRNOS ===== */}
-      <section className="section section-alt" aria-labelledby="why-heading">
+      <section className="section" aria-labelledby="why-heading">
         <div className="container-main">
           <ScrollReveal>
             <div className="text-center mb-14">

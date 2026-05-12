@@ -93,7 +93,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* ===== DESARROLLO PRINCIPAL ===== */}
-      <section className="section section-alt" aria-labelledby="dev-heading">
+      <section className="section" aria-labelledby="dev-heading">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <ScrollReveal>
@@ -185,7 +185,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* ===== HOSTING ===== */}
-      <section id="hosting" className="section section-alt" aria-labelledby="hosting-heading">
+      <section id="hosting" className="section" aria-labelledby="hosting-heading">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <ScrollReveal>
@@ -253,7 +253,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* ===== CTA ===== */}
-      <section className="section section-alt" aria-labelledby="cta-servicios">
+      <section className="section" aria-labelledby="cta-servicios">
         <div className="container-main text-center">
           <ScrollReveal>
             <h2 id="cta-servicios" className="text-3xl md:text-4xl font-bold text-acento mb-5">

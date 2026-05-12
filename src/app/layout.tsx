@@ -3,7 +3,7 @@ import { Fira_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SpaceParticles from "@/components/SpaceParticles";
+import GlobalBackground3DWrapper from "@/components/GlobalBackground3DWrapper";
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
@@ -35,8 +35,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={firaSans.variable}>
       <body className="font-sans antialiased">
-        {/* Fixed space background — spans entire viewport */}
-        <SpaceParticles />
+        {/* Three.js global background — fixed, reacts to mouse on all pages */}
+        <GlobalBackground3DWrapper />
 
         <Navbar />
         <main id="main-content" className="relative" style={{ zIndex: 1 }}>

@@ -106,7 +106,7 @@ export default function PortafolioPage() {
       </section>
 
       {/* ===== DESARROLLO INDEPENDIENTE ===== */}
-      <section className="section section-alt" aria-labelledby="indie-heading">
+      <section className="section" aria-labelledby="indie-heading">
         <div className="container-main">
           <ScrollReveal>
             <div className="mb-10">
@@ -177,7 +177,7 @@ export default function PortafolioPage() {
       </section>
 
       {/* ===== CTA ===== */}
-      <section className="section section-alt" aria-labelledby="cta-portafolio">
+      <section className="section" aria-labelledby="cta-portafolio">
         <div className="container-main text-center">
           <ScrollReveal>
             <h2 id="cta-portafolio" className="text-3xl md:text-4xl font-bold text-acento mb-5">

@@ -57,7 +57,7 @@ export default function ContactoPage() {
       </section>
 
       {/* ===== FORM + DATOS ===== */}
-      <section className="section section-alt" aria-label="Formulario de contacto">
+      <section className="section" aria-label="Formulario de contacto">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             {/* Form */}
