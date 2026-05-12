@@ -1,0 +1,9 @@
+<svg width="188" height="48" viewBox="0 0 188 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Driva Dev logo">
+  <!-- Isotipo -->
+  <rect width="48" height="48" rx="12" fill="#EA580C"/>
+  <path d="M11 15 L20 24 L11 33" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22 15 L31 24 L22 33" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  <!-- Wordmark -->
+  <text x="60" y="32" font-family="Fira Sans, system-ui, sans-serif" font-weight="700" font-size="22" fill="#9A3412">Driva</text>
+  <text x="122" y="32" font-family="Fira Sans, system-ui, sans-serif" font-weight="500" font-size="22" fill="#EA580C">Dev</text>
+</svg>
