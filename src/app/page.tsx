@@ -122,35 +122,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== FILOSOFÍA ===== */}
-      <section className="section" aria-labelledby="filosofia-heading">
-        <div className="container-main">
-          <div className="max-w-3xl mx-auto text-center">
-            <ScrollReveal>
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Nuestra filosofía
-              </span>
-              <h2 id="filosofia-heading" className="text-3xl md:text-5xl font-bold text-acento mb-6">
-                Nos importa tu negocio, no solo tu proyecto.
-              </h2>
-              <p className="text-lg text-white/65 leading-relaxed">
-                Antes de escribir una línea de código, nos sentamos a entender quién sos, qué necesitás
-                y a dónde querés llegar. Cada proyecto es una relación de confianza, no una transacción.
-                Por eso cada cliente recibe una propuesta pensada exclusivamente para él.
-              </p>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
       {/* ===== SERVICIOS PREVIEW ===== */}
       <section className="section" aria-labelledby="servicios-heading">
         <div className="container-main">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Servicios
-              </span>
               <h2 id="servicios-heading" className="text-3xl md:text-4xl font-bold text-acento">
                 Lo que desarrollamos
               </h2>
@@ -194,11 +170,8 @@ export default function HomePage() {
         <div className="container-main">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Portafolio
-              </span>
               <h2 id="portfolio-heading" className="text-3xl md:text-4xl font-bold text-acento">
-                Proyectos que hablan por sí solos
+                Algunos proyectos
               </h2>
             </div>
           </ScrollReveal>
@@ -246,29 +219,27 @@ export default function HomePage() {
       {/* ===== POR QUÉ ELEGIRNOS ===== */}
       <section className="section" aria-labelledby="why-heading">
         <div className="container-main">
-          <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Por qué elegirnos
-              </span>
-              <h2 id="why-heading" className="text-3xl md:text-4xl font-bold text-acento">
-                Nuestros estándares no son negociables
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <ScrollReveal>
+              <h2 id="why-heading" className="text-4xl md:text-5xl font-bold text-acento leading-tight mb-6">
+                ¿Por qué<br />Driva Dev?
               </h2>
-            </div>
-          </ScrollReveal>
+              <p className="text-white/55 leading-relaxed text-lg">
+                Somos un equipo chico que trabaja de forma directa. Sin capas, sin cuentas de
+                agencia, sin malentendidos. Cuando hablás con nosotros, hablás con quien hace el trabajo.
+              </p>
+            </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyUs.map(({ iconPath, title, body }, i) => (
-              <ScrollReveal key={title} delay={i * 90}>
-                <div className="glass-card p-6 h-full">
-                  <div className="w-10 h-10 flex items-center justify-center bg-principal/20 rounded-xl mb-4 text-principal">
-                    <Icon path={iconPath} />
+            <div className="divide-y divide-white/10">
+              {whyUs.map(({ title, body }, i) => (
+                <ScrollReveal key={title} delay={i * 70}>
+                  <div className="py-6 first:pt-0 last:pb-0">
+                    <h3 className="font-bold text-acento mb-1.5">{title}</h3>
+                    <p className="text-sm text-white/55 leading-relaxed">{body}</p>
                   </div>
-                  <h3 className="font-bold text-acento text-base mb-2">{title}</h3>
-                  <p className="text-sm text-white/60 leading-relaxed">{body}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -281,8 +252,7 @@ export default function HomePage() {
               ¿Tenés un proyecto en mente?
             </h2>
             <p className="text-lg text-white/60 max-w-xl mx-auto mb-10 leading-relaxed">
-              Contanos tu idea. Sin compromisos, sin formularios complicados.
-              Solo una conversación real sobre lo que necesitás.
+              Escribinos cuando quieras. Sin reuniones previas ni presupuesto de 48 hs.
             </p>
             <Link href="/contacto" className="btn-primary inline-block">
               Hablar de mi proyecto
