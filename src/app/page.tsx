@@ -230,16 +230,16 @@ export default function HomePage() {
               </p>
             </ScrollReveal>
 
-            <div className="divide-y divide-white/10">
-              {whyUs.map(({ title, body }, i) => (
-                <ScrollReveal key={title} delay={i * 70}>
-                  <div className="py-6 first:pt-0 last:pb-0">
+            <ScrollReveal delay={100}>
+              <div className="divide-y divide-white/10">
+                {whyUs.map(({ title, body }) => (
+                  <div key={title} className="py-5">
                     <h3 className="font-bold text-acento mb-1.5">{title}</h3>
                     <p className="text-sm text-white/55 leading-relaxed">{body}</p>
                   </div>
-                </ScrollReveal>
-              ))}
-            </div>
+                ))}
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
