@@ -14,6 +14,22 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://drivadev.com.ar/portafolio" },
 };
 
+const thirdPartyProjects = [
+  {
+    name: "Running Team Cup",
+    tag: "Deporte · Sitio institucional",
+    url: "https://www.runningteamcup.com.ar/es",
+    description:
+      "Sitio web para la competencia argentina de running por equipos. Información del evento, ediciones anteriores, resultados y todo lo que los participantes necesitan saber antes de correr.",
+    features: [
+      "Información del evento y ediciones",
+      "Diseño adaptado a la identidad del evento",
+      "Soporte multiidioma",
+      "100% responsive",
+    ],
+  },
+];
+
 const independentProjects = [
   {
     name: "Turnly",
@@ -185,14 +201,66 @@ export default function PortafolioPage() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={100}>
-            <div className="rounded-3xl border-2 border-dashed border-white/12 p-12 text-center">
-              <p className="text-white/35 font-medium text-sm mb-1">Próximamente</p>
-              <p className="text-white/25 text-xs">
-                Los proyectos de clientes aparecen acá a medida que se suman.
-              </p>
-            </div>
-          </ScrollReveal>
+          <div className="space-y-28">
+            {thirdPartyProjects.map((project, i) => (
+              <ScrollReveal key={project.name} delay={100}>
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+                  {/* Mockup */}
+                  <div className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <BrowserMockup url={project.url} name={project.name} />
+                  </div>
+
+                  {/* Content */}
+                  <div className={`lg:col-span-2 lg:pt-4 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                    <h3 className="text-3xl font-bold text-acento mb-2">{project.name}</h3>
+                    <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2.5 py-1 rounded-full inline-block mb-5">
+                      {project.tag}
+                    </span>
+                    <p className="text-white/65 leading-relaxed mb-6 text-sm">
+                      {project.description}
+                    </p>
+                    <ul className="space-y-2.5 mb-8">
+                      {project.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2.5 text-sm text-white/55">
+                          <svg
+                            className="w-4 h-4 text-principal flex-shrink-0"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2.5}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary !py-3 !px-6 inline-flex items-center gap-2"
+                      aria-label={`Ver proyecto ${project.name} (abre en nueva pestaña)`}
+                    >
+                      Ver proyecto
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2.5}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
