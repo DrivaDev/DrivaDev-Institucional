@@ -100,7 +100,7 @@ export default function HomePage() {
         <div className="container-main relative pt-28 pb-20" style={{ zIndex: 2 }}>
           <div className="max-w-2xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-              Desarrollo web argentino
+              Desarrollo web
             </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-acento leading-[1.1] mb-6">
               Tu presencia online,{" "}
