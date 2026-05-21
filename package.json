@@ -16,12 +16,6 @@
     "react-dom": "^19.0.0",
     "three": "^0.176.0"
   },
-  "browserslist": [
-    "chrome >= 93",
-    "firefox >= 92",
-    "safari >= 15.4",
-    "edge >= 93"
-  ],
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
