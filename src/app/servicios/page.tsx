@@ -68,9 +68,59 @@ const hostingFeatures = [
   { iconPath: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", title: "Panel de control", body: "Acceso completo para ver el estado de tu sitio." },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "¿Qué tipo de sitios y aplicaciones web desarrollan?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Desarrollamos cualquier tipo de sitio o aplicación web: sitios institucionales, tiendas online, sistemas de gestión, plataformas SaaS y más. Cada proyecto se construye desde cero, sin plantillas, adaptado a las necesidades específicas de cada negocio.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Qué incluye el plan de mantenimiento mensual?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Los planes de mantenimiento incluyen modificaciones de contenido y diseño, actualizaciones de seguridad y dependencias, monitoreo de disponibilidad, soporte por WhatsApp y email, y respaldo periódico del sitio.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Ofrecen servicio de hosting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sí. Gestionamos el hosting para los sitios desarrollados por Driva Dev. Nos encargamos del servidor, certificados SSL, dominios y toda la configuración técnica, con alta velocidad y panel de control incluido.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Cómo es el proceso de desarrollo?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "El proceso tiene cuatro etapas: investigación del negocio y objetivos, propuesta a medida con tecnología y tiempos definidos, desarrollo con comunicación constante, y entrega con acompañamiento en el lanzamiento.",
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://drivadev.com.ar" },
+    { "@type": "ListItem", position: 2, name: "Servicios", item: "https://drivadev.com.ar/servicios" },
+  ],
+};
+
 export default function ServiciosPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-20">
         <div className="container-main">
@@ -97,9 +147,6 @@ export default function ServiciosPage() {
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <ScrollReveal>
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Desarrollo web
-              </span>
               <h2 id="dev-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
                 Cualquier idea, hecha realidad
               </h2>
@@ -163,9 +210,6 @@ export default function ServiciosPage() {
             </ScrollReveal>
 
             <ScrollReveal className="order-1 lg:order-2">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Mantenimiento mensual
-              </span>
               <h2 id="mant-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
                 Tu web, siempre al día
               </h2>
@@ -189,9 +233,6 @@ export default function ServiciosPage() {
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <ScrollReveal>
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Hosting
-              </span>
               <h2 id="hosting-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
                 Instalá y olvidate
               </h2>
@@ -229,11 +270,8 @@ export default function ServiciosPage() {
         <div className="container-main">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-4 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Cómo trabajamos
-              </span>
               <h2 id="proceso-heading" className="text-3xl md:text-4xl font-bold text-acento">
-                Un proceso claro de principio a fin
+                Cómo trabajamos
               </h2>
             </div>
           </ScrollReveal>

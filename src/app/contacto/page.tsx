@@ -33,9 +33,19 @@ const contactMethods = [
   },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://drivadev.com.ar" },
+    { "@type": "ListItem", position: 2, name: "Contacto", item: "https://drivadev.com.ar/contacto" },
+  ],
+};
+
 export default function ContactoPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-20">
         <div className="container-main">
