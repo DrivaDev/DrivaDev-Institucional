@@ -10,16 +10,17 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "critters": "^0.0.23",
     "next": "^16.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "^0.176.0"
   },
   "browserslist": [
-    "chrome >= 87",
-    "firefox >= 78",
-    "safari >= 14",
-    "edge >= 88"
+    "chrome >= 93",
+    "firefox >= 92",
+    "safari >= 15.4",
+    "edge >= 93"
   ],
   "devDependencies": {
     "@types/node": "^20",
