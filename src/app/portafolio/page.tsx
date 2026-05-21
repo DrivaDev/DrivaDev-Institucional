@@ -5,10 +5,10 @@ import ScrollReveal from "@/components/ScrollReveal";
 export const metadata: Metadata = {
   title: "Portafolio — Proyectos desarrollados",
   description:
-    "Conocé los proyectos desarrollados por Driva Dev: Turnly y MenuDig, dos productos SaaS construidos de forma independiente.",
+    "Conocé los proyectos desarrollados por Driva Dev: productos SaaS propios y sitios para clientes. Desarrollo web a medida desde cero.",
   openGraph: {
     title: "Portafolio — Driva Dev",
-    description: "Proyectos reales construidos por Driva Dev.",
+    description: "Proyectos reales de desarrollo web a medida. Productos propios y trabajos para clientes.",
     url: "https://drivadev.com.ar/portafolio",
   },
   alternates: { canonical: "https://drivadev.com.ar/portafolio" },

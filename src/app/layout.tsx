@@ -19,12 +19,11 @@ export const metadata: Metadata = {
     template: "%s | Driva Dev",
   },
   description:
-    "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores argentinos. Investigamos tu negocio, proponemos la solución ideal y la construimos.",
+    "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores. Investigamos tu negocio y construimos la solución ideal.",
   openGraph: {
     siteName: "Driva Dev",
     locale: "es_AR",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Driva Dev" }],
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
@@ -35,6 +34,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={firaSans.variable}>
       <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Driva Dev",
+              url: "https://drivadev.com.ar",
+              logo: "https://drivadev.com.ar/isotipo.svg",
+              description:
+                "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+54-11-3913-9022",
+                email: "driva.devv@gmail.com",
+                contactType: "customer service",
+                availableLanguage: "Spanish",
+              },
+              sameAs: ["https://www.instagram.com/driva.dev"],
+            }),
+          }}
+        />
         {/* Three.js global background — fixed, reacts to mouse on all pages */}
         <GlobalBackground3DWrapper />
 
