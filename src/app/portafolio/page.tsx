@@ -19,6 +19,7 @@ const thirdPartyProjects = [
     name: "Wet Corp Comex",
     tag: "Software · Comercio exterior",
     url: "https://www.wetcorp-comex.com.ar",
+    screenshot: "/screenshots/wetcorp-comex.jpeg",
     description:
       "Sistema de gestión de importaciones que conecta importadores, proveedores y despachantes en un único flujo de trabajo. Permite gestionar órdenes de compra completas: desde los datos del proveedor hasta los gastos de importación, documentos y exportación a PDF.",
     features: [
@@ -126,10 +127,10 @@ const breadcrumbSchema = {
 };
 
 export default async function PortafolioPage() {
-  // Pre-fetch all screenshots in parallel at build time
+  // Static screenshot takes priority; fall back to microlink for public sites
   const [indieScreenshots, thirdScreenshots] = await Promise.all([
-    Promise.all(independentProjects.map((p) => getScreenshotUrl(p.url))),
-    Promise.all(thirdPartyProjects.map((p) => getScreenshotUrl(p.url))),
+    Promise.all(independentProjects.map((p) => ("screenshot" in p && p.screenshot) ? Promise.resolve(p.screenshot as string) : getScreenshotUrl(p.url))),
+    Promise.all(thirdPartyProjects.map((p) => ("screenshot" in p && p.screenshot) ? Promise.resolve(p.screenshot as string) : getScreenshotUrl(p.url))),
   ]);
 
   return (
