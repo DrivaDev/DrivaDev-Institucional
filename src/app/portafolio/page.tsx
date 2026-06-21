@@ -103,12 +103,12 @@ function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; ur
           {url.replace("https://", "").replace("http://", "")}
         </div>
       </div>
-      <div className="relative aspect-[16/10] bg-[#111] overflow-hidden">
+      <div className="bg-[#111] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={screenshotUrl}
           alt={`Vista previa de ${name}`}
-          className="w-full h-full object-cover object-top"
+          className="w-full h-auto block"
           loading="lazy"
         />
       </div>
