@@ -91,7 +91,7 @@ async function getScreenshotUrl(url: string): Promise<string> {
   }
 }
 
-function BrowserMockup({ screenshotUrl, url, name, staticImage = false }: { screenshotUrl: string; url: string; name: string; staticImage?: boolean }) {
+function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; url: string; name: string }) {
   return (
     <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
       {/* macOS-style browser chrome */}
@@ -103,13 +103,12 @@ function BrowserMockup({ screenshotUrl, url, name, staticImage = false }: { scre
           {url.replace("https://", "").replace("http://", "")}
         </div>
       </div>
-      {/* Screenshot */}
-      <div className={staticImage ? "bg-[#111] overflow-hidden" : "relative aspect-[16/10] bg-[#111] overflow-hidden"}>
+      <div className="relative aspect-[16/10] bg-[#111] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={screenshotUrl}
           alt={`Vista previa de ${name}`}
-          className={staticImage ? "w-full h-auto block" : "w-full h-full object-cover object-top"}
+          className="w-full h-full object-cover object-top"
           loading="lazy"
         />
       </div>
@@ -231,7 +230,7 @@ export default async function PortafolioPage() {
               <ScrollReveal key={project.name} delay={100}>
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
                   <div className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} staticImage={"screenshot" in project && !!project.screenshot} />
+                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} />
                   </div>
                   <div className={`lg:col-span-2 lg:pt-4 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                     <h3 className="text-3xl font-bold text-acento mb-2">{project.name}</h3>
