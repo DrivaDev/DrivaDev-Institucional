@@ -16,6 +16,19 @@ export const metadata: Metadata = {
 
 const thirdPartyProjects = [
   {
+    name: "Wet Corp Comex",
+    tag: "Software · Comercio exterior",
+    url: "https://www.wetcorp-comex.com.ar",
+    description:
+      "Sistema de gestión de importaciones que conecta importadores, proveedores y despachantes en un único flujo de trabajo. Permite gestionar órdenes de compra completas: desde los datos del proveedor hasta los gastos de importación, documentos y exportación a PDF.",
+    features: [
+      "Gestión de órdenes de compra por etapas",
+      "Seguimiento de gastos de importación en ARS y USD",
+      "Carga y organización de documentos",
+      "Dashboard con estadísticas en tiempo real",
+    ],
+  },
+  {
     name: "Running Team Cup",
     tag: "Deporte · Sitio institucional",
     url: "https://www.runningteamcup.com.ar/es",
@@ -59,8 +72,25 @@ const independentProjects = [
   },
 ];
 
-function BrowserMockup({ url, name }: { url: string; name: string }) {
-  const screenshotUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&embed=screenshot.url&type=jpeg`;
+// Fetch screenshot URL server-side at build time (cached 24h via ISR).
+// microlink generates the screenshot once and caches it on their CDN —
+// users get the pre-resolved CDN URL instead of triggering generation on load.
+async function getScreenshotUrl(url: string): Promise<string> {
+  const fallback = `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&embed=screenshot.url&type=jpeg`;
+  try {
+    const res = await fetch(
+      `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true`,
+      { next: { revalidate: 86400 } }
+    );
+    if (!res.ok) return fallback;
+    const json = await res.json();
+    return (json?.data?.screenshot?.url as string) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; url: string; name: string }) {
   return (
     <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
       {/* macOS-style browser chrome */}
@@ -69,10 +99,10 @@ function BrowserMockup({ url, name }: { url: string; name: string }) {
         <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
         <div className="w-3 h-3 rounded-full bg-[#28c840]" />
         <div className="flex-1 ml-3 mr-1 bg-[#1a1716] rounded text-[11px] text-white/30 font-mono px-3 py-1 truncate">
-          {url.replace("https://", "")}
+          {url.replace("https://", "").replace("http://", "")}
         </div>
       </div>
-      {/* Screenshot */}
+      {/* Screenshot — URL already resolved server-side, loads from CDN instantly */}
       <div className="relative aspect-[16/10] bg-[#111] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -95,7 +125,13 @@ const breadcrumbSchema = {
   ],
 };
 
-export default function PortafolioPage() {
+export default async function PortafolioPage() {
+  // Pre-fetch all screenshots in parallel at build time
+  const [indieScreenshots, thirdScreenshots] = await Promise.all([
+    Promise.all(independentProjects.map((p) => getScreenshotUrl(p.url))),
+    Promise.all(thirdPartyProjects.map((p) => getScreenshotUrl(p.url))),
+  ]);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -134,38 +170,21 @@ export default function PortafolioPage() {
           <div className="space-y-28">
             {independentProjects.map((project, i) => (
               <ScrollReveal key={project.name} delay={100}>
-                <div
-                  className={`grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start`}
-                >
-                  {/* Mockup */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
                   <div className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <BrowserMockup url={project.url} name={project.name} />
+                    <BrowserMockup screenshotUrl={indieScreenshots[i]} url={project.url} name={project.name} />
                   </div>
-
-                  {/* Content */}
                   <div className={`lg:col-span-2 lg:pt-4 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                     <h3 className="text-3xl font-bold text-acento mb-2">{project.name}</h3>
                     <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2.5 py-1 rounded-full inline-block mb-5">
                       {project.tag}
                     </span>
-                    <p className="text-white/65 leading-relaxed mb-6 text-sm">
-                      {project.description}
-                    </p>
+                    <p className="text-white/65 leading-relaxed mb-6 text-sm">{project.description}</p>
                     <ul className="space-y-2.5 mb-8">
                       {project.features.map((f) => (
                         <li key={f} className="flex items-center gap-2.5 text-sm text-white/55">
-                          <svg
-                            className="w-4 h-4 text-principal flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2.5}
-                              d="M5 13l4 4L19 7"
-                            />
+                          <svg className="w-4 h-4 text-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                           </svg>
                           {f}
                         </li>
@@ -180,12 +199,7 @@ export default function PortafolioPage() {
                     >
                       Ver proyecto
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
                   </div>
@@ -215,35 +229,20 @@ export default function PortafolioPage() {
             {thirdPartyProjects.map((project, i) => (
               <ScrollReveal key={project.name} delay={100}>
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
-                  {/* Mockup */}
                   <div className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <BrowserMockup url={project.url} name={project.name} />
+                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} />
                   </div>
-
-                  {/* Content */}
                   <div className={`lg:col-span-2 lg:pt-4 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                     <h3 className="text-3xl font-bold text-acento mb-2">{project.name}</h3>
                     <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2.5 py-1 rounded-full inline-block mb-5">
                       {project.tag}
                     </span>
-                    <p className="text-white/65 leading-relaxed mb-6 text-sm">
-                      {project.description}
-                    </p>
+                    <p className="text-white/65 leading-relaxed mb-6 text-sm">{project.description}</p>
                     <ul className="space-y-2.5 mb-8">
                       {project.features.map((f) => (
                         <li key={f} className="flex items-center gap-2.5 text-sm text-white/55">
-                          <svg
-                            className="w-4 h-4 text-principal flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2.5}
-                              d="M5 13l4 4L19 7"
-                            />
+                          <svg className="w-4 h-4 text-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                           </svg>
                           {f}
                         </li>
@@ -258,12 +257,7 @@ export default function PortafolioPage() {
                     >
                       Ver proyecto
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
                   </div>
