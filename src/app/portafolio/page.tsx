@@ -32,7 +32,7 @@ const thirdPartyProjects = [
     name: "Wet Corp - Comex",
     tag: "Software · Comercio exterior",
     url: "https://www.wetcorp-comex.com.ar",
-    screenshot: "/screenshots/wetcorp-comex.jpeg",
+    screenshot: "/screenshots/wetcorp-comex.png",
     description:
       "Sistema de gestión de importaciones que conecta importadores, proveedores y despachantes en un único flujo de trabajo. Permite gestionar órdenes de compra completas: desde los datos del proveedor hasta los gastos de importación, documentos y exportación a PDF.",
     features: [
