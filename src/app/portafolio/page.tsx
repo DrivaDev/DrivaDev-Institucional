@@ -91,7 +91,7 @@ async function getScreenshotUrl(url: string): Promise<string> {
   }
 }
 
-function BrowserMockup({ screenshotUrl, url, name, cropLeft = false }: { screenshotUrl: string; url: string; name: string; cropLeft?: boolean }) {
+function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; url: string; name: string }) {
   return (
     <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
       {/* macOS-style browser chrome */}
@@ -103,12 +103,12 @@ function BrowserMockup({ screenshotUrl, url, name, cropLeft = false }: { screens
           {url.replace("https://", "").replace("http://", "")}
         </div>
       </div>
-      <div className="relative aspect-[16/10] bg-[#111] overflow-hidden">
+      <div className="bg-[#111] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={screenshotUrl}
           alt={`Vista previa de ${name}`}
-          className={`w-full h-full object-cover object-top${cropLeft ? " scale-[1.25] origin-top-right" : ""}`}
+          className="w-full h-auto block"
           loading="lazy"
         />
       </div>
@@ -230,7 +230,7 @@ export default async function PortafolioPage() {
               <ScrollReveal key={project.name} delay={100}>
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
                   <div className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} cropLeft={"screenshot" in project && !!project.screenshot} />
+                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} />
                   </div>
                   <div className={`lg:col-span-2 lg:pt-4 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                     <h3 className="text-3xl font-bold text-acento mb-2">{project.name}</h3>
