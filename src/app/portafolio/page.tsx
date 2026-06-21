@@ -16,20 +16,6 @@ export const metadata: Metadata = {
 
 const thirdPartyProjects = [
   {
-    name: "Wet Corp Comex",
-    tag: "Software · Comercio exterior",
-    url: "https://www.wetcorp-comex.com.ar",
-    screenshot: "/screenshots/wetcorp-comex.jpeg",
-    description:
-      "Sistema de gestión de importaciones que conecta importadores, proveedores y despachantes en un único flujo de trabajo. Permite gestionar órdenes de compra completas: desde los datos del proveedor hasta los gastos de importación, documentos y exportación a PDF.",
-    features: [
-      "Gestión de órdenes de compra por etapas",
-      "Seguimiento de gastos de importación en ARS y USD",
-      "Carga y organización de documentos",
-      "Dashboard con estadísticas en tiempo real",
-    ],
-  },
-  {
     name: "Running Team Cup",
     tag: "Deporte · Sitio institucional",
     url: "https://www.runningteamcup.com.ar/es",
@@ -40,6 +26,20 @@ const thirdPartyProjects = [
       "Diseño adaptado a la identidad del evento",
       "Soporte multiidioma",
       "100% responsive",
+    ],
+  },
+  {
+    name: "Wet Corp - Comex",
+    tag: "Software · Comercio exterior",
+    url: "https://www.wetcorp-comex.com.ar",
+    screenshot: "/screenshots/wetcorp-comex.jpeg",
+    description:
+      "Sistema de gestión de importaciones que conecta importadores, proveedores y despachantes en un único flujo de trabajo. Permite gestionar órdenes de compra completas: desde los datos del proveedor hasta los gastos de importación, documentos y exportación a PDF.",
+    features: [
+      "Gestión de órdenes de compra por etapas",
+      "Seguimiento de gastos de importación en ARS y USD",
+      "Carga y organización de documentos",
+      "Dashboard con estadísticas en tiempo real",
     ],
   },
 ];
@@ -91,7 +91,7 @@ async function getScreenshotUrl(url: string): Promise<string> {
   }
 }
 
-function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; url: string; name: string }) {
+function BrowserMockup({ screenshotUrl, url, name, staticImage = false }: { screenshotUrl: string; url: string; name: string; staticImage?: boolean }) {
   return (
     <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
       {/* macOS-style browser chrome */}
@@ -103,13 +103,13 @@ function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; ur
           {url.replace("https://", "").replace("http://", "")}
         </div>
       </div>
-      {/* Screenshot — URL already resolved server-side, loads from CDN instantly */}
-      <div className="relative aspect-[16/10] bg-[#111] overflow-hidden">
+      {/* Screenshot */}
+      <div className={staticImage ? "bg-[#111] overflow-hidden" : "relative aspect-[16/10] bg-[#111] overflow-hidden"}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={screenshotUrl}
           alt={`Vista previa de ${name}`}
-          className="w-full h-full object-cover object-top"
+          className={staticImage ? "w-full h-auto block" : "w-full h-full object-cover object-top"}
           loading="lazy"
         />
       </div>
@@ -231,7 +231,7 @@ export default async function PortafolioPage() {
               <ScrollReveal key={project.name} delay={100}>
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
                   <div className={`lg:col-span-3 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} />
+                    <BrowserMockup screenshotUrl={thirdScreenshots[i]} url={project.url} name={project.name} staticImage={"screenshot" in project && !!project.screenshot} />
                   </div>
                   <div className={`lg:col-span-2 lg:pt-4 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                     <h3 className="text-3xl font-bold text-acento mb-2">{project.name}</h3>
