@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   Scene,
   PerspectiveCamera,
@@ -19,9 +19,6 @@ import {
 // back to their original position (adapted from 21st.dev woven-light-hero).
 export default function GlobalBackground3D() {
   const mountRef = useRef<HTMLDivElement>(null);
-  // Starts false so the lightweight CSS fallback shows; flips to true only once
-  // the WebGL scene is actually running, which hides the fallback.
-  const [glActive, setGlActive] = useState(false);
 
   useEffect(() => {
     const container = mountRef.current;
@@ -66,9 +63,11 @@ export default function GlobalBackground3D() {
     // Cap DPR harder: high-DPI desktops multiply fill cost and are the ones crashing.
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);
+    // Layer the transparent logo canvas above the always-on CSS starfield.
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.inset = "0";
+    renderer.domElement.style.zIndex = "1";
     container.appendChild(renderer.domElement);
-    // GL context is live — hide the CSS fallback.
-    setGlActive(true);
 
     // If the GPU drops the context, stop the loop cleanly rather than crash the renderer.
     const canvas = renderer.domElement;
@@ -85,41 +84,8 @@ export default function GlobalBackground3D() {
     // Orange palette for the logo dots — darker range (lightest tones dropped)
     const palette = ["#7c2d12", "#9a3412", "#c2410c", "#ea580c"].map((h) => new Color(h));
 
-    // --- Starfield (space depth behind the logo) ---
-    const makeStars = (count: number, spread: number, depth: number, size: number, opacity: number) => {
-      const sPos = new Float32Array(count * 3);
-      const sCol = new Float32Array(count * 3);
-      const starPalette = ["#ea580c", "#f97316", "#fdba74"].map((h) => new Color(h));
-      for (let i = 0; i < count; i++) {
-        const i3 = i * 3;
-        sPos[i3] = (Math.random() - 0.5) * spread;
-        sPos[i3 + 1] = (Math.random() - 0.5) * spread;
-        sPos[i3 + 2] = -1 - Math.random() * depth; // behind the logo
-        const c = starPalette[(Math.random() * starPalette.length) | 0];
-        const b = 0.5 + Math.random() * 0.5; // brightness variation
-        sCol[i3] = c.r * b;
-        sCol[i3 + 1] = c.g * b;
-        sCol[i3 + 2] = c.b * b;
-      }
-      const g = new BufferGeometry();
-      g.setAttribute("position", new BufferAttribute(sPos, 3));
-      g.setAttribute("color", new BufferAttribute(sCol, 3));
-      const m = new PointsMaterial({
-        size,
-        vertexColors: true,
-        transparent: true,
-        opacity,
-        blending: AdditiveBlending,
-        sizeAttenuation: true,
-        depthWrite: false,
-      });
-      const pts = new Points(g, m);
-      scene.add(pts);
-      return { pts, g, m };
-    };
-
-    const starsFar = makeStars(isMobile ? 220 : 450, 34, 12, 0.05, 0.55);
-    const starsNear = makeStars(isMobile ? 100 : 200, 26, 6, 0.08, 0.85);
+    // Starfield lives in the always-on CSS layer (CssSpaceFallback), so WebGL only
+    // draws the isotipo logo — much lighter than before.
 
     // --- Particle state (allocated after the logo is sampled) ---
     let particleCount = 0;
@@ -159,16 +125,6 @@ export default function GlobalBackground3D() {
       const t = clock.getElapsedTime();
       tx += (mx - tx) * 0.03;
       ty += (my - ty) * 0.03;
-
-      // Starfield: independent, very soft autonomous drift (no cursor coupling)
-      starsFar.pts.rotation.y = t * 0.005;
-      starsFar.pts.position.x = Math.sin(t * 0.04) * 0.35;
-      starsFar.pts.position.y = Math.cos(t * 0.03) * 0.28;
-      starsFar.m.opacity = 0.5 + Math.sin(t * 0.6) * 0.12;
-      starsNear.pts.rotation.y = t * 0.008;
-      starsNear.pts.position.x = Math.sin(t * 0.06 + 1.2) * 0.45;
-      starsNear.pts.position.y = Math.cos(t * 0.05 + 2.1) * 0.36;
-      starsNear.m.opacity = 0.75 + Math.sin(t * 0.9 + 1.5) * 0.16;
 
       if (!geometry || !points) {
         renderer.render(scene, camera);
@@ -312,10 +268,6 @@ export default function GlobalBackground3D() {
       canvas.removeEventListener("webglcontextrestored", onContextRestored as EventListener);
       geometry?.dispose();
       (points?.material as PointsMaterial | undefined)?.dispose();
-      starsFar.g.dispose();
-      starsFar.m.dispose();
-      starsNear.g.dispose();
-      starsNear.m.dispose();
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -330,7 +282,9 @@ export default function GlobalBackground3D() {
       style={{ zIndex: 0, pointerEvents: "none" }}
       aria-hidden="true"
     >
-      {!glActive && <CssSpaceFallback />}
+      {/* Always-on lightweight space background (glow + stars). The WebGL logo
+          canvas is appended on top of this by the effect when the GPU allows. */}
+      <CssSpaceFallback />
     </div>
   );
 }
