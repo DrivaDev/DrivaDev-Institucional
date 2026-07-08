@@ -24,6 +24,21 @@ export default function GlobalBackground3D() {
     const container = mountRef.current;
     if (!container) return;
 
+    // Respect reduced-motion and bail on devices without a usable WebGL context
+    // instead of letting a failed/lost context crash the whole tab.
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const supportsWebGL = (() => {
+      try {
+        const c = document.createElement("canvas");
+        return !!(c.getContext("webgl2") || c.getContext("webgl"));
+      } catch {
+        return false;
+      }
+    })();
+    if (!supportsWebGL) return;
+
     const isMobile = window.innerWidth < 768;
 
     const scene = new Scene();
@@ -32,11 +47,35 @@ export default function GlobalBackground3D() {
     camera.position.set(isMobile ? 0 : -1.4, 0, 5.5);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new WebGLRenderer({ antialias: !isMobile, alpha: true });
+    let renderer: WebGLRenderer;
+    try {
+      renderer = new WebGLRenderer({
+        antialias: !isMobile,
+        alpha: true,
+        powerPreference: "low-power",
+        failIfMajorPerformanceCaveat: false,
+      });
+    } catch {
+      // No GL context available — leave the page background untouched.
+      return;
+    }
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2));
+    // Cap DPR harder: high-DPI desktops multiply fill cost and are the ones crashing.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
+
+    // If the GPU drops the context, stop the loop cleanly rather than crash the renderer.
+    const canvas = renderer.domElement;
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      cancelAnimationFrame(animId);
+    };
+    const onContextRestored = () => {
+      animate();
+    };
+    canvas.addEventListener("webglcontextlost", onContextLost as EventListener, false);
+    canvas.addEventListener("webglcontextrestored", onContextRestored as EventListener, false);
 
     // Orange palette for the logo dots — darker range (lightest tones dropped)
     const palette = ["#7c2d12", "#9a3412", "#c2410c", "#ea580c"].map((h) => new Color(h));
@@ -74,8 +113,8 @@ export default function GlobalBackground3D() {
       return { pts, g, m };
     };
 
-    const starsFar = makeStars(isMobile ? 260 : 700, 34, 12, 0.05, 0.55);
-    const starsNear = makeStars(isMobile ? 120 : 320, 26, 6, 0.08, 0.85);
+    const starsFar = makeStars(isMobile ? 220 : 450, 34, 12, 0.05, 0.55);
+    const starsNear = makeStars(isMobile ? 100 : 200, 26, 6, 0.08, 0.85);
 
     // --- Particle state (allocated after the logo is sampled) ---
     let particleCount = 0;
@@ -193,7 +232,7 @@ export default function GlobalBackground3D() {
         }
       }
 
-      const target = Math.min(isMobile ? 2600 : 5500, filled.length / 2);
+      const target = Math.min(isMobile ? 2200 : 3200, filled.length / 2);
       particleCount = target;
 
       positions = new Float32Array(particleCount * 3);
@@ -264,6 +303,8 @@ export default function GlobalBackground3D() {
       window.removeEventListener("mousemove", onMouse);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      canvas.removeEventListener("webglcontextlost", onContextLost as EventListener);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored as EventListener);
       geometry?.dispose();
       (points?.material as PointsMaterial | undefined)?.dispose();
       starsFar.g.dispose();
