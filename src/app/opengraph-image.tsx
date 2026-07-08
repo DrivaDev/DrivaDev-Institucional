@@ -14,7 +14,7 @@ export default function OGImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        background: "#1C1917",
+        background: "#0A0908",
         padding: "88px",
         position: "relative",
         overflow: "hidden",

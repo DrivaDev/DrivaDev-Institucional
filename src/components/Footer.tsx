@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer
       className="relative border-t border-white/10"
-      style={{ background: "rgba(28,25,23,0.95)", zIndex: 1 }}
+      style={{ background: "rgba(10,9,8,0.95)", zIndex: 1 }}
       aria-label="Pie de página"
     >
       <div className="container-main py-14">

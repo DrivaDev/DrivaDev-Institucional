@@ -5,20 +5,18 @@ import {
   Scene,
   PerspectiveCamera,
   WebGLRenderer,
-  IcosahedronGeometry,
-  MeshBasicMaterial,
-  MeshPhongMaterial,
-  Mesh,
-  AmbientLight,
-  PointLight,
   BufferGeometry,
   BufferAttribute,
   PointsMaterial,
   Points,
-  DoubleSide,
+  Color,
+  AdditiveBlending,
   Clock,
 } from "three";
 
+// Driva Dev "Woven by Light" — particle cloud shaped like the isotipo, orange palette.
+// Particles are sampled from /isotipo.svg pixels, repelled by the cursor, and spring
+// back to their original position (adapted from 21st.dev woven-light-hero).
 export default function GlobalBackground3D() {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -40,49 +38,54 @@ export default function GlobalBackground3D() {
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // Wireframe icosahedron
-    const geo = new IcosahedronGeometry(2, 2);
-    const mat = new MeshBasicMaterial({ color: 0xea580c, wireframe: true, transparent: true, opacity: 0.42 });
-    const mesh = new Mesh(geo, mat);
-    scene.add(mesh);
+    // Orange palette for the logo dots — darker range (lightest tones dropped)
+    const palette = ["#7c2d12", "#9a3412", "#c2410c", "#ea580c"].map((h) => new Color(h));
 
-    // Inner fill
-    const innerGeo = new IcosahedronGeometry(1.65, 1);
-    const innerMat = new MeshPhongMaterial({ color: 0xfed7aa, transparent: true, opacity: 0.055, side: DoubleSide });
-    const innerMesh = new Mesh(innerGeo, innerMat);
-    scene.add(innerMesh);
+    // --- Starfield (space depth behind the logo) ---
+    const makeStars = (count: number, spread: number, depth: number, size: number, opacity: number) => {
+      const sPos = new Float32Array(count * 3);
+      const sCol = new Float32Array(count * 3);
+      const starPalette = ["#ea580c", "#f97316", "#fdba74"].map((h) => new Color(h));
+      for (let i = 0; i < count; i++) {
+        const i3 = i * 3;
+        sPos[i3] = (Math.random() - 0.5) * spread;
+        sPos[i3 + 1] = (Math.random() - 0.5) * spread;
+        sPos[i3 + 2] = -1 - Math.random() * depth; // behind the logo
+        const c = starPalette[(Math.random() * starPalette.length) | 0];
+        const b = 0.5 + Math.random() * 0.5; // brightness variation
+        sCol[i3] = c.r * b;
+        sCol[i3 + 1] = c.g * b;
+        sCol[i3 + 2] = c.b * b;
+      }
+      const g = new BufferGeometry();
+      g.setAttribute("position", new BufferAttribute(sPos, 3));
+      g.setAttribute("color", new BufferAttribute(sCol, 3));
+      const m = new PointsMaterial({
+        size,
+        vertexColors: true,
+        transparent: true,
+        opacity,
+        blending: AdditiveBlending,
+        sizeAttenuation: true,
+        depthWrite: false,
+      });
+      const pts = new Points(g, m);
+      scene.add(pts);
+      return { pts, g, m };
+    };
 
-    // Lights
-    scene.add(new AmbientLight(0xffffff, 0.4));
-    const pLight = new PointLight(0xea580c, 3, 15);
-    pLight.position.set(4, 4, 4);
-    scene.add(pLight);
+    const starsFar = makeStars(isMobile ? 260 : 700, 34, 12, 0.05, 0.55);
+    const starsNear = makeStars(isMobile ? 120 : 320, 26, 6, 0.08, 0.85);
 
-    // Orbiting particles — fewer on mobile
-    const COUNT = isMobile ? 80 : 200;
-    const pPos = new Float32Array(COUNT * 3);
-    const pAngles = new Float32Array(COUNT);
-    const pSpeeds = new Float32Array(COUNT);
-    const pRadii = new Float32Array(COUNT);
-    const pInc = new Float32Array(COUNT);
+    // --- Particle state (allocated after the logo is sampled) ---
+    let particleCount = 0;
+    let positions: Float32Array;
+    let originalPositions: Float32Array;
+    let velocities: Float32Array;
+    let geometry: BufferGeometry | null = null;
+    let points: Points | null = null;
 
-    for (let i = 0; i < COUNT; i++) {
-      pAngles[i] = Math.random() * Math.PI * 2;
-      pInc[i] = Math.acos(Math.random() * 2 - 1);
-      pRadii[i] = 3 + Math.random() * 2.5;
-      pSpeeds[i] = 0.0006 + Math.random() * 0.002;
-      const r = pRadii[i], t = pAngles[i], p = pInc[i];
-      pPos[i * 3]     = r * Math.sin(p) * Math.cos(t);
-      pPos[i * 3 + 1] = r * Math.sin(p) * Math.sin(t);
-      pPos[i * 3 + 2] = r * Math.cos(p);
-    }
-
-    const pGeo = new BufferGeometry();
-    pGeo.setAttribute("position", new BufferAttribute(pPos, 3));
-    const pMat = new PointsMaterial({ color: 0x9a3412, size: 0.055, transparent: true, opacity: 0.8, sizeAttenuation: true });
-    const particles = new Points(pGeo, pMat);
-    scene.add(particles);
-
+    // Cursor in world space (plane z=0)
     let mx = 0, my = 0, tx = 0, ty = 0;
     const onMouse = (e: MouseEvent) => {
       mx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -91,11 +94,16 @@ export default function GlobalBackground3D() {
     window.addEventListener("mousemove", onMouse);
 
     const clock = new Clock();
-    let animId: number;
+    let animId = 0;
     let lastFrameTime = 0;
     const frameInterval = isMobile ? 1000 / 30 : 0;
 
-    const animate = (timestamp: number = 0) => {
+    const REPEL_RADIUS = 1.4;
+    const REPEL_FORCE = 0.005;
+    const RETURN_FORCE = 0.008;
+    const DAMPING = 0.94;
+
+    const animate = (timestamp = 0) => {
       animId = requestAnimationFrame(animate);
 
       if (frameInterval > 0) {
@@ -105,28 +113,131 @@ export default function GlobalBackground3D() {
       }
 
       const t = clock.getElapsedTime();
-      tx += (mx - tx) * 0.04;
-      ty += (my - ty) * 0.04;
+      tx += (mx - tx) * 0.03;
+      ty += (my - ty) * 0.03;
 
-      mesh.rotation.x = t * 0.12 + ty * 0.35;
-      mesh.rotation.y = t * 0.16 + tx * 0.35;
-      innerMesh.rotation.x = -t * 0.08;
-      innerMesh.rotation.y = t * 0.2;
+      // Starfield: independent, very soft autonomous drift (no cursor coupling)
+      starsFar.pts.rotation.y = t * 0.005;
+      starsFar.pts.position.x = Math.sin(t * 0.04) * 0.35;
+      starsFar.pts.position.y = Math.cos(t * 0.03) * 0.28;
+      starsFar.m.opacity = 0.5 + Math.sin(t * 0.6) * 0.12;
+      starsNear.pts.rotation.y = t * 0.008;
+      starsNear.pts.position.x = Math.sin(t * 0.06 + 1.2) * 0.45;
+      starsNear.pts.position.y = Math.cos(t * 0.05 + 2.1) * 0.36;
+      starsNear.m.opacity = 0.75 + Math.sin(t * 0.9 + 1.5) * 0.16;
 
-      const pos = pGeo.attributes.position.array as Float32Array;
-      for (let i = 0; i < COUNT; i++) {
-        pAngles[i] += pSpeeds[i];
-        const r = pRadii[i], theta = pAngles[i], phi = pInc[i];
-        pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
-        pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-        pos[i * 3 + 2] = r * Math.cos(phi);
+      if (!geometry || !points) {
+        renderer.render(scene, camera);
+        return;
       }
-      pGeo.attributes.position.needsUpdate = true;
 
-      particles.rotation.y = tx * 0.2;
-      particles.rotation.x = ty * 0.2;
+      // Cursor projected onto the cloud plane (undo the group rotation on x/y is
+      // negligible for a gentle sway, so approximate in world units).
+      const mouseX = tx * 3.2;
+      const mouseY = ty * 2.2;
+
+      for (let i = 0; i < particleCount; i++) {
+        const ix = i * 3, iy = ix + 1, iz = ix + 2;
+
+        // Repulsion in the screen plane
+        const dx = positions[ix] - mouseX;
+        const dy = positions[iy] - mouseY;
+        const dist = Math.hypot(dx, dy);
+        if (dist < REPEL_RADIUS && dist > 0.0001) {
+          const force = (REPEL_RADIUS - dist) * REPEL_FORCE;
+          velocities[ix] += (dx / dist) * force;
+          velocities[iy] += (dy / dist) * force;
+        }
+
+        // Spring back to origin
+        velocities[ix] += (originalPositions[ix] - positions[ix]) * RETURN_FORCE;
+        velocities[iy] += (originalPositions[iy] - positions[iy]) * RETURN_FORCE;
+        velocities[iz] += (originalPositions[iz] - positions[iz]) * RETURN_FORCE;
+
+        // Damping
+        velocities[ix] *= DAMPING;
+        velocities[iy] *= DAMPING;
+        velocities[iz] *= DAMPING;
+
+        positions[ix] += velocities[ix];
+        positions[iy] += velocities[iy];
+        positions[iz] += velocities[iz];
+      }
+      geometry.attributes.position.needsUpdate = true;
+
+      // Gentle sway + subtle cursor tilt — never a full spin (flat logo would vanish edge-on)
+      points.rotation.y = Math.sin(t * 0.09) * 0.2 + tx * 0.1;
+      points.rotation.x = Math.sin(t * 0.07) * 0.07 + ty * 0.08;
 
       renderer.render(scene, camera);
+    };
+
+    // --- Sample the isotipo into a particle cloud ---
+    const img = new Image();
+    img.src = "/isotipo.svg";
+    img.onload = () => {
+      const CANVAS = 220;
+      const cv = document.createElement("canvas");
+      cv.width = CANVAS;
+      cv.height = CANVAS;
+      const ctx = cv.getContext("2d");
+      if (!ctx) return;
+      ctx.drawImage(img, 0, 0, CANVAS, CANVAS);
+      const data = ctx.getImageData(0, 0, CANVAS, CANVAS).data;
+
+      // Collect filled pixels (alpha above threshold)
+      const filled: number[] = [];
+      for (let py = 0; py < CANVAS; py++) {
+        for (let px = 0; px < CANVAS; px++) {
+          if (data[(py * CANVAS + px) * 4 + 3] > 40) filled.push(px, py);
+        }
+      }
+
+      const target = Math.min(isMobile ? 2600 : 5500, filled.length / 2);
+      particleCount = target;
+
+      positions = new Float32Array(particleCount * 3);
+      originalPositions = new Float32Array(particleCount * 3);
+      velocities = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const SCALE = 4.6; // world size of the logo
+      for (let i = 0; i < particleCount; i++) {
+        // Pick a random filled pixel
+        const p = (Math.floor(Math.random() * (filled.length / 2))) * 2;
+        const px = filled[p];
+        const py = filled[p + 1];
+
+        const x = (px / CANVAS - 0.5) * SCALE;
+        const y = -(py / CANVAS - 0.5) * SCALE;
+        const z = (Math.random() - 0.5) * 0.35;
+
+        const ix = i * 3;
+        positions[ix] = originalPositions[ix] = x;
+        positions[ix + 1] = originalPositions[ix + 1] = y;
+        positions[ix + 2] = originalPositions[ix + 2] = z;
+
+        const c = palette[(Math.random() * palette.length) | 0];
+        colors[ix] = c.r;
+        colors[ix + 1] = c.g;
+        colors[ix + 2] = c.b;
+      }
+
+      geometry = new BufferGeometry();
+      geometry.setAttribute("position", new BufferAttribute(positions, 3));
+      geometry.setAttribute("color", new BufferAttribute(colors, 3));
+
+      const material = new PointsMaterial({
+        size: isMobile ? 0.03 : 0.028,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: AdditiveBlending,
+        sizeAttenuation: true,
+      });
+
+      points = new Points(geometry, material);
+      scene.add(points);
     };
 
     animate();
@@ -153,6 +264,12 @@ export default function GlobalBackground3D() {
       window.removeEventListener("mousemove", onMouse);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      geometry?.dispose();
+      (points?.material as PointsMaterial | undefined)?.dispose();
+      starsFar.g.dispose();
+      starsFar.m.dispose();
+      starsNear.g.dispose();
+      starsNear.m.dispose();
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);

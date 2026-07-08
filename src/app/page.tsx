@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
-import GlobalBackground3DWrapper from "@/components/GlobalBackground3DWrapper";
 
 export const metadata: Metadata = {
   title: "Driva Dev — Tu presencia online, construida para crecer",
@@ -94,10 +93,9 @@ const portfolioPreview = [
 export default function HomePage() {
   return (
     <>
-      <GlobalBackground3DWrapper />
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1917]/90 via-[#1C1917]/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0908]/90 via-[#0A0908]/50 to-transparent pointer-events-none" />
 
         <div className="container-main relative pt-28 pb-20" style={{ zIndex: 2 }}>
           <div className="max-w-2xl">
