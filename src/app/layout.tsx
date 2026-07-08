@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GlobalBackground3DWrapper from "@/components/GlobalBackground3DWrapper";
+import SpotlightCards from "@/components/SpotlightCards";
 
 const firaSans = Fira_Sans({
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <GlobalBackground3DWrapper />
+        <SpotlightCards />
         <Navbar />
         <main id="main-content" className="relative" style={{ zIndex: 1 }}>
           {children}
