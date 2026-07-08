@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Scene,
   PerspectiveCamera,
@@ -19,6 +19,9 @@ import {
 // back to their original position (adapted from 21st.dev woven-light-hero).
 export default function GlobalBackground3D() {
   const mountRef = useRef<HTMLDivElement>(null);
+  // Starts false so the lightweight CSS fallback shows; flips to true only once
+  // the WebGL scene is actually running, which hides the fallback.
+  const [glActive, setGlActive] = useState(false);
 
   useEffect(() => {
     const container = mountRef.current;
@@ -64,6 +67,8 @@ export default function GlobalBackground3D() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
+    // GL context is live — hide the CSS fallback.
+    setGlActive(true);
 
     // If the GPU drops the context, stop the loop cleanly rather than crash the renderer.
     const canvas = renderer.domElement;
@@ -324,6 +329,39 @@ export default function GlobalBackground3D() {
       className="fixed inset-0 w-full h-full"
       style={{ zIndex: 0, pointerEvents: "none" }}
       aria-hidden="true"
+    >
+      {!glActive && <CssSpaceFallback />}
+    </div>
+  );
+}
+
+// Zero-GPU CSS fallback: same dark-space + orange palette, no WebGL, no crash risk.
+// Painted once (static) — used when WebGL is unavailable, fails, or reduced-motion.
+function CssSpaceFallback() {
+  // Tiny tiled starfield as an inline SVG data URI (orange dots, varied size/opacity).
+  const stars =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E" +
+    "%3Cg fill='%23f97316'%3E" +
+    "%3Ccircle cx='24' cy='40' r='1' opacity='0.8'/%3E%3Ccircle cx='120' cy='18' r='1.4' opacity='0.5'/%3E" +
+    "%3Ccircle cx='210' cy='60' r='1' opacity='0.7'/%3E%3Ccircle cx='270' cy='120' r='1.6' opacity='0.4'/%3E" +
+    "%3Ccircle cx='60' cy='150' r='1.2' opacity='0.6'/%3E%3Ccircle cx='150' cy='110' r='1' opacity='0.8'/%3E" +
+    "%3Ccircle cx='30' cy='250' r='1.5' opacity='0.5'/%3E%3Ccircle cx='190' cy='210' r='1' opacity='0.7'/%3E" +
+    "%3Ccircle cx='250' cy='260' r='1.2' opacity='0.6'/%3E%3Ccircle cx='100' cy='280' r='1' opacity='0.5'/%3E" +
+    "%3Ccircle cx='285' cy='20' r='1' opacity='0.7'/%3E%3Ccircle cx='15' cy='120' r='1.3' opacity='0.5'/%3E" +
+    "%3C/g%3E%3C/svg%3E";
+
+  return (
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundColor: "#0A0908",
+        backgroundImage:
+          "radial-gradient(60% 55% at 22% 28%, rgba(234,88,12,0.20) 0%, rgba(234,88,12,0) 55%)," +
+          "radial-gradient(55% 50% at 82% 72%, rgba(154,52,18,0.18) 0%, rgba(154,52,18,0) 55%)," +
+          `url("${stars}")`,
+        backgroundRepeat: "no-repeat, no-repeat, repeat",
+        backgroundSize: "auto, auto, 300px 300px",
+      }}
     />
   );
 }
