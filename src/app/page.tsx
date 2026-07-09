@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import { formatDate, publishedPosts } from "@/content/blog/posts";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Desarrollo Web a Medida en Argentina — Driva Dev",
+  title: "Desarrollo Web a Medida en Argentina | Driva Dev",
   description:
     "Desarrollo web a medida en Argentina para empresas y emprendedores. Construimos sitios, aplicaciones web y sistemas desde cero. Sin plantillas, con acompañamiento real.",
   openGraph: {
-    title: "Desarrollo Web a Medida en Argentina — Driva Dev",
+    title: "Desarrollo Web a Medida en Argentina | Driva Dev",
     description: "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores argentinos. Sin plantillas, código propio.",
     url: "https://drivadev.com.ar",
   },
@@ -90,7 +93,35 @@ const portfolioPreview = [
   },
 ];
 
+const businessUnits = [
+  {
+    label: "Productos propios",
+    title: "Construimos software que nosotros mismos operamos",
+    body: "Turnly y MenuDig son nuestros. Los desarrollamos, los mantenemos, pagamos sus costos y respondemos su soporte. Eso significa que cuando hablamos de escalabilidad, seguridad o suscripciones, no hablamos desde la teoría.",
+    href: "/portafolio",
+    cta: "Ver nuestros productos",
+  },
+  {
+    label: "Desarrollo para terceros",
+    title: "Y construimos el software que tu negocio necesita",
+    body: "Sitios, sistemas y plataformas a medida para empresas y emprendedores, con mantenimiento y hosting si los necesitás. La misma exigencia técnica que aplicamos a lo nuestro.",
+    href: "/servicios",
+    cta: "Ver servicios",
+  },
+];
+
+const standards = [
+  "Estructura semántica perfecta",
+  "Velocidad garantizada",
+  "SEO on-code de primer nivel",
+  "Experiencia de usuario cuidada",
+  "100% responsive",
+  "Cumplimiento legal",
+];
+
 export default function HomePage() {
+  const latestPosts = publishedPosts().slice(0, 3);
+
   return (
     <>
       {/* ===== HERO ===== */}
@@ -216,6 +247,90 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ===== UNIDADES DE NEGOCIO ===== */}
+      <section className="section" aria-labelledby="unidades-heading">
+        <div className="container-main">
+          <ScrollReveal>
+            <div className="max-w-2xl mb-14">
+              <h2 id="unidades-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
+                No solo desarrollamos para otros
+              </h2>
+              <p className="text-white/65 leading-relaxed">
+                Driva Dev tiene dos patas. Una construye software para clientes. La otra
+                construye y sostiene productos propios. La segunda es la que nos mantiene
+                honestos: cargamos con las consecuencias de cada decisión técnica que tomamos.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {businessUnits.map(({ label, title, body, href, cta }, i) => (
+              <ScrollReveal key={label} delay={i * 120}>
+                <div className="card-project h-full flex flex-col">
+                  <span className="text-xs font-bold uppercase tracking-widest text-principal mb-4">
+                    {label}
+                  </span>
+                  <h3 className="text-xl font-bold text-acento leading-snug mb-3">{title}</h3>
+                  <p className="text-sm text-white/60 leading-relaxed flex-1 mb-6">{body}</p>
+                  <Link
+                    href={href}
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-principal hover:gap-3 transition-all self-start"
+                  >
+                    {cta}
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== ESTÁNDARES ===== */}
+      <section className="section" aria-labelledby="estandares-heading">
+        <div className="container-main">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+            <ScrollReveal>
+              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
+                No negociable
+              </span>
+              <h2 id="estandares-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
+                Seis cosas que entregamos siempre
+              </h2>
+              <p className="text-white/65 leading-relaxed mb-4">
+                No dependen del presupuesto ni del tamaño del proyecto. Si no podemos cumplir
+                con estos seis puntos, no entregamos el sitio.
+              </p>
+              <p className="text-white/65 leading-relaxed">
+                Es la lista de lo que tenés derecho a exigirle a cualquiera que te desarrolle
+                una web. Incluidos nosotros.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal delay={120}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {standards.map((label) => (
+                  <div key={label} className="flex items-center gap-3 glass-card !rounded-xl px-4 py-3.5">
+                    <svg
+                      className="w-5 h-5 text-principal flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-sm font-medium text-white/80">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
       {/* ===== POR QUÉ ELEGIRNOS ===== */}
       <section className="section" aria-labelledby="why-heading">
         <div className="container-main">
@@ -243,6 +358,56 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ===== ÚLTIMOS ARTÍCULOS ===== */}
+      {latestPosts.length > 0 && (
+        <section className="section" aria-labelledby="blog-heading">
+          <div className="container-main">
+            <ScrollReveal>
+              <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+                <div className="max-w-xl">
+                  <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold text-acento mb-3">
+                    Del blog
+                  </h2>
+                  <p className="text-white/60 leading-relaxed">
+                    Escribimos sobre desarrollo, SEO y decisiones de negocio digital. Sin humo
+                    ni recetas mágicas.
+                  </p>
+                </div>
+                <Link href="/blog" className="btn-secondary">
+                  Ver todos
+                </Link>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {latestPosts.map((post, i) => (
+                <ScrollReveal key={post.slug} delay={i * 90}>
+                  <Link href={`/blog/${post.slug}`} className="card-project block h-full group">
+                    <article className="flex flex-col h-full">
+                      <div className="flex flex-wrap items-center gap-2.5 mb-3">
+                        <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2 py-0.5 rounded-full">
+                          {post.category}
+                        </span>
+                        <span className="text-xs text-white/35">{post.readingMinutes} min</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-acento leading-snug mb-2.5 group-hover:text-principal transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-white/55 leading-relaxed flex-1">
+                        {post.description}
+                      </p>
+                      <time dateTime={post.publishedAt} className="text-xs text-white/35 mt-5 block">
+                        {formatDate(post.publishedAt)}
+                      </time>
+                    </article>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ===== CTA FINAL ===== */}
       <section className="section" aria-labelledby="cta-heading">

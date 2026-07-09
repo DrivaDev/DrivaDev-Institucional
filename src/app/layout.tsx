@@ -16,7 +16,7 @@ const firaSans = Fira_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://drivadev.com.ar"),
   title: {
-    default: "Desarrollo Web a Medida en Argentina — Driva Dev",
+    default: "Desarrollo Web a Medida en Argentina | Driva Dev",
     template: "%s | Driva Dev",
   },
   description:

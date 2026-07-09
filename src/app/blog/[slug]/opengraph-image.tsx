@@ -1,11 +1,23 @@
 import { ImageResponse } from "next/og";
+import { getPost } from "@/content/blog/posts";
 
 export const runtime = "edge";
-export const alt = "Contacto y presupuesto de desarrollo web | Driva Dev";
+export const alt = "Artículo del blog de Driva Dev";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OGImage() {
+export default async function OGImage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getPost(slug);
+
+  const [lead, accent] = post?.ogHeadline ?? ["Blog de", "Driva Dev"];
+  const category = post?.category ?? "Blog";
+  const readingMinutes = post?.readingMinutes;
+
+  const footer = readingMinutes
+    ? `${category} · ${readingMinutes} min de lectura · drivadev.com.ar`
+    : "Desarrollo web a medida · drivadev.com.ar";
+
   return new ImageResponse(
     (
       <div
@@ -33,7 +45,7 @@ export default function OGImage() {
             background: "radial-gradient(circle, rgba(234,88,12,0.18) 0%, transparent 70%)",
           }}
         />
-        <div style={{ display: "flex", alignItems: "center", gap: "18px", marginBottom: "52px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "18px", marginBottom: "44px" }}>
           <div
             style={{
               width: "60px",
@@ -55,19 +67,19 @@ export default function OGImage() {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            fontSize: "66px",
+            fontSize: "60px",
             fontWeight: 700,
-            lineHeight: 1.1,
+            lineHeight: 1.12,
             marginBottom: "32px",
             fontFamily: "sans-serif",
-            maxWidth: "900px",
+            maxWidth: "960px",
           }}
         >
-          <span style={{ color: "#FED7AA" }}>Hablemos de&nbsp;</span>
-          <span style={{ color: "#EA580C" }}>tu proyecto.</span>
+          <span style={{ color: "#FED7AA" }}>{lead}&nbsp;</span>
+          <span style={{ color: "#EA580C" }}>{accent}</span>
         </div>
-        <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "26px", fontFamily: "sans-serif", letterSpacing: "0.01em" }}>
-          Contacto · Respuesta en menos de 24 horas · drivadev.com.ar
+        <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "26px", fontFamily: "sans-serif" }}>
+          {footer}
         </div>
       </div>
     ),

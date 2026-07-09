@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Portafolio de proyectos de desarrollo web — Driva Dev";
+export const alt = "Portafolio de proyectos de desarrollo web | Driva Dev";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

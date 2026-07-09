@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Driva Dev — Tu presencia online, construida para crecer";
+export const alt = "Driva Dev, desarrollo web a medida en Argentina";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
