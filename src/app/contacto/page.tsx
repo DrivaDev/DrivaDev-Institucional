@@ -3,12 +3,12 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contacto — Hablemos de tu proyecto",
+  title: "Contacto y Presupuesto de Desarrollo Web",
   description:
-    "Contactate con Driva Dev por WhatsApp, email o formulario. Te respondemos en menos de 24 horas.",
+    "Pedí tu presupuesto de desarrollo web a medida en Argentina. Contactate con Driva Dev por WhatsApp, email o formulario. Te respondemos en menos de 24 horas.",
   openGraph: {
-    title: "Contacto — Driva Dev",
-    description: "Hablemos de tu proyecto. Te respondemos en menos de 24 horas.",
+    title: "Contacto | Driva Dev",
+    description: "Hablemos de tu proyecto de desarrollo web. Te respondemos en menos de 24 horas.",
     url: "https://drivadev.com.ar/contacto",
   },
   alternates: { canonical: "https://drivadev.com.ar/contacto" },
@@ -55,7 +55,7 @@ export default function ContactoPage() {
                 Contacto
               </span>
               <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Hablemos de tu proyecto
+                Hablemos de tu proyecto web
               </h1>
               <p className="text-lg text-white/65 leading-relaxed">
                 Contanos sobre tu idea o tu negocio. Sin compromisos. Te respondemos en menos

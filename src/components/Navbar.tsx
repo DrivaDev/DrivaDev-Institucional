@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Inicio", href: "/" },
   { label: "Servicios", href: "/servicios" },
   { label: "Portafolio", href: "/portafolio" },
+  { label: "Blog", href: "/blog" },
   { label: "Contacto", href: "/contacto" },
 ];
 
@@ -33,7 +34,7 @@ export default function Navbar() {
       style={{ zIndex: 50 }}
     >
       <nav className="container-main flex items-center justify-between py-3 h-18" aria-label="Navegación principal">
-        <Link href="/" className="flex items-center gap-2.5 group" aria-label="Driva Dev — Inicio">
+        <Link href="/" className="flex items-center gap-2.5 group" aria-label="Driva Dev, ir al inicio">
           <Image
             src="/isotipo.svg"
             alt="Driva Dev"

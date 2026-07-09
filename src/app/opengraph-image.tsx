@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Driva Dev — Tu presencia online, construida para crecer";
+export const alt = "Driva Dev, desarrollo web a medida en Argentina";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -68,7 +68,8 @@ export default function OGImage() {
       {/* Headline */}
       <div
         style={{
-          color: "#FED7AA",
+          display: "flex",
+          flexWrap: "wrap",
           fontSize: "66px",
           fontWeight: 700,
           lineHeight: 1.1,
@@ -77,7 +78,7 @@ export default function OGImage() {
           maxWidth: "900px",
         }}
       >
-        Tu presencia online,{" "}
+        <span style={{ color: "#FED7AA" }}>Tu presencia online,&nbsp;</span>
         <span style={{ color: "#EA580C" }}>construida para crecer.</span>
       </div>
 

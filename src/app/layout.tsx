@@ -16,11 +16,21 @@ const firaSans = Fira_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://drivadev.com.ar"),
   title: {
-    default: "Driva Dev — Tu presencia online, construida para crecer",
+    default: "Desarrollo Web a Medida en Argentina | Driva Dev",
     template: "%s | Driva Dev",
   },
   description:
-    "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores. Investigamos tu negocio y construimos la solución ideal.",
+    "Desarrollo web a medida en Argentina para empresas y emprendedores. Construimos sitios, aplicaciones web y sistemas desde cero. Sin plantillas, con acompañamiento real.",
+  keywords: [
+    "desarrollo web a medida",
+    "diseñador web argentina",
+    "desarrollador web argentina",
+    "diseño web buenos aires",
+    "aplicaciones web a medida",
+    "desarrollo de software argentina",
+    "programador web freelance",
+    "agencia desarrollo web",
+  ],
   openGraph: {
     siteName: "Driva Dev",
     locale: "es_AR",
@@ -40,12 +50,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": ["Organization", "ProfessionalService"],
               name: "Driva Dev",
               url: "https://drivadev.com.ar",
               logo: "https://drivadev.com.ar/isotipo.svg",
+              image: "https://drivadev.com.ar/logo-horizontal.svg",
               description:
-                "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores.",
+                "Desarrollo web a medida en Argentina para empresas y emprendedores. Sitios, aplicaciones web y sistemas construidos desde cero.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Buenos Aires",
+                addressRegion: "Buenos Aires",
+                addressCountry: "AR",
+              },
+              areaServed: {
+                "@type": "Country",
+                name: "Argentina",
+              },
+              knowsLanguage: "es-AR",
+              priceRange: "$$",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+54-11-3913-9022",
