@@ -36,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${base}/desarrollo-web-buenos-aires`,
+      lastModified: new Date("2026-07-09"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${base}/contacto`,
       lastModified: new Date("2026-07-09"),
       changeFrequency: "yearly",

@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Portafolio", href: "/portafolio" },
   { label: "Blog", href: "/blog" },
   { label: "Contacto", href: "/contacto" },
+  { label: "Desarrollo web en Buenos Aires", href: "/desarrollo-web-buenos-aires" },
 ];
 
 export default function Footer() {
