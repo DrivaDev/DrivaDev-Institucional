@@ -3,12 +3,12 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
-  title: "Portafolio — Proyectos desarrollados",
+  title: "Portafolio de Proyectos de Desarrollo Web",
   description:
-    "Conocé los proyectos desarrollados por Driva Dev: productos SaaS propios y sitios para clientes. Desarrollo web a medida desde cero.",
+    "Proyectos de desarrollo web a medida hechos por Driva Dev en Argentina: productos SaaS propios y sistemas para clientes. Sitios, apps y plataformas construidos desde cero.",
   openGraph: {
-    title: "Portafolio — Driva Dev",
-    description: "Proyectos reales de desarrollo web a medida. Productos propios y trabajos para clientes.",
+    title: "Portafolio de Desarrollo Web | Driva Dev",
+    description: "Proyectos reales de desarrollo web a medida en Argentina. Productos propios y trabajos para clientes.",
     url: "https://drivadev.com.ar/portafolio",
   },
   alternates: { canonical: "https://drivadev.com.ar/portafolio" },
@@ -107,8 +107,10 @@ function BrowserMockup({ screenshotUrl, url, name }: { screenshotUrl: string; ur
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={screenshotUrl}
-          alt={`Vista previa de ${name}`}
+          alt={`Captura del proyecto ${name} desarrollado por Driva Dev`}
           className="w-full h-auto block"
+          width={1280}
+          height={800}
           loading="lazy"
         />
       </div>
@@ -141,7 +143,7 @@ export default async function PortafolioPage() {
           <ScrollReveal>
             <div className="max-w-2xl">
               <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Lo que construimos
+                Proyectos de desarrollo web a medida
               </h1>
               <p className="text-lg text-white/65 leading-relaxed">
                 Proyectos reales, problemas reales. Acá podés ver cómo trabajamos

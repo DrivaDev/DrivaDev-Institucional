@@ -3,12 +3,12 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
-  title: "Driva Dev — Tu presencia online, construida para crecer",
+  title: "Desarrollo Web a Medida en Argentina — Driva Dev",
   description:
-    "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores argentinos. Investigamos, diseñamos, construimos y acompañamos.",
+    "Desarrollo web a medida en Argentina para empresas y emprendedores. Construimos sitios, aplicaciones web y sistemas desde cero. Sin plantillas, con acompañamiento real.",
   openGraph: {
-    title: "Driva Dev — Tu presencia online, construida para crecer",
-    description: "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores argentinos.",
+    title: "Desarrollo Web a Medida en Argentina — Driva Dev",
+    description: "Desarrollamos sitios y aplicaciones web a medida para empresas y emprendedores argentinos. Sin plantillas, código propio.",
     url: "https://drivadev.com.ar",
   },
   alternates: { canonical: "https://drivadev.com.ar" },
@@ -100,11 +100,11 @@ export default function HomePage() {
         <div className="container-main relative pt-28 pb-20" style={{ zIndex: 2 }}>
           <div className="max-w-2xl">
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-              Desarrollo web
+              Desarrollo web · Argentina
             </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-acento leading-[1.1] mb-6">
-              Tu presencia online,{" "}
-              <span className="text-principal">construida para crecer.</span>
+              Desarrollo web a medida,{" "}
+              <span className="text-principal">construido para crecer.</span>
             </h1>
             <p className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl">
               Desarrollamos sitios y aplicaciones web a medida que generan resultados reales.

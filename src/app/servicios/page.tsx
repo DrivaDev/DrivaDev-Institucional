@@ -3,12 +3,12 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
-  title: "Servicios — Desarrollo web a medida",
+  title: "Servicios de Desarrollo Web a Medida en Argentina",
   description:
-    "Desarrollamos cualquier tipo de sitio o aplicación web completamente a medida. También ofrecemos planes de mantenimiento mensual y hosting.",
+    "Desarrollo web a medida en Argentina: sitios, tiendas online, sistemas y aplicaciones web desde cero. Planes de mantenimiento mensual y hosting incluidos. Sin plantillas.",
   openGraph: {
-    title: "Servicios — Driva Dev",
-    description: "Desarrollo web a medida, mantenimiento mensual y hosting. Sin plantillas.",
+    title: "Servicios de Desarrollo Web a Medida | Driva Dev",
+    description: "Desarrollo web a medida, mantenimiento mensual y hosting en Argentina. Código propio, sin plantillas.",
     url: "https://drivadev.com.ar/servicios",
   },
   alternates: { canonical: "https://drivadev.com.ar/servicios" },
@@ -116,11 +116,55 @@ const breadcrumbSchema = {
   ],
 };
 
+const provider = {
+  "@type": "Organization",
+  name: "Driva Dev",
+  url: "https://drivadev.com.ar",
+};
+
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: [
+    {
+      "@type": "Service",
+      position: 1,
+      name: "Desarrollo web a medida",
+      serviceType: "Desarrollo de sitios y aplicaciones web",
+      description:
+        "Sitios institucionales, tiendas online, sistemas de gestión y plataformas SaaS construidos desde cero, sin plantillas.",
+      provider,
+      areaServed: { "@type": "Country", name: "Argentina" },
+    },
+    {
+      "@type": "Service",
+      position: 2,
+      name: "Mantenimiento web mensual",
+      serviceType: "Mantenimiento y soporte de sitios web",
+      description:
+        "Planes mensuales con modificaciones de contenido y diseño incluidas, actualizaciones de seguridad, monitoreo y respaldo.",
+      provider,
+      areaServed: { "@type": "Country", name: "Argentina" },
+    },
+    {
+      "@type": "Service",
+      position: 3,
+      name: "Hosting web administrado",
+      serviceType: "Hosting y administración de servidores",
+      description:
+        "Gestión de servidor, certificados SSL, dominios y configuración técnica con alta velocidad y panel de control.",
+      provider,
+      areaServed: { "@type": "Country", name: "Argentina" },
+    },
+  ],
+};
+
 export default function ServiciosPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-20">
         <div className="container-main">
@@ -130,7 +174,7 @@ export default function ServiciosPage() {
                 Servicios
               </span>
               <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Desarrollo web completamente a medida
+                Desarrollo web a medida para empresas y emprendedores
               </h1>
               <p className="text-lg md:text-xl text-white/65 leading-relaxed max-w-2xl">
                 Desarrollamos cualquier tipo de sitio o aplicación web. No usamos plantillas ni

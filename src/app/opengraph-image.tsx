@@ -68,7 +68,8 @@ export default function OGImage() {
       {/* Headline */}
       <div
         style={{
-          color: "#FED7AA",
+          display: "flex",
+          flexWrap: "wrap",
           fontSize: "66px",
           fontWeight: 700,
           lineHeight: 1.1,
@@ -77,7 +78,7 @@ export default function OGImage() {
           maxWidth: "900px",
         }}
       >
-        Tu presencia online,{" "}
+        <span style={{ color: "#FED7AA" }}>Tu presencia online,&nbsp;</span>
         <span style={{ color: "#EA580C" }}>construida para crecer.</span>
       </div>
 
