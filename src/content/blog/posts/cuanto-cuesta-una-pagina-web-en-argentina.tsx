@@ -17,6 +17,7 @@ export const meta: PostMeta = {
     "cuanto sale una web a medida",
   ],
   ogHeadline: ["¿Cuánto cuesta una", "página web?"],
+  coverAlt: "Una calculadora sobre un escritorio, en penumbra",
 };
 
 export default function Body() {

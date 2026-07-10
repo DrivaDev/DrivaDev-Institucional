@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "intencion de busqueda",
   ],
   ogHeadline: ["Escribir contenido", "que Google encuentre"],
+  coverAlt: "Una mano escribe en un cuaderno al lado de una taza de café",
 };
 
 export default function Body() {

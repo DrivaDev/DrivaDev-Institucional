@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "indexacion movil google",
   ],
   ogHeadline: ["Diseño responsive", "y mobile first"],
+  coverAlt: "Una persona sostiene un teléfono con las dos manos",
 };
 
 export default function Body() {

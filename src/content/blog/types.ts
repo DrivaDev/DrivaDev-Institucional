@@ -18,6 +18,11 @@ export type PostMeta = {
    * [texto en color acento, texto en color principal]
    */
   ogHeadline: [string, string];
+  /**
+   * Texto alternativo de la portada. Describe la foto, no repite el título.
+   * La ruta del archivo sale del slug: ver `coverSrc()`.
+   */
+  coverAlt: string;
 };
 
 export type Post = PostMeta & {

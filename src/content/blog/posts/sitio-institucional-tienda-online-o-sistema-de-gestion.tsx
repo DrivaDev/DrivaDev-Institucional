@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "que tipo de web necesito",
   ],
   ogHeadline: ["¿Qué tipo de web", "necesita tu negocio?"],
+  coverAlt: "Una mano sostiene una tarjeta frente a una tienda online abierta en una notebook",
 };
 
 export default function Body() {

@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "desarrollar un saas",
   ],
   ogHeadline: ["Qué es una", "aplicación SaaS"],
+  coverAlt: "Una notebook abierta e iluminada en una habitación a oscuras",
 };
 
 export default function Body() {

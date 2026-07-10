@@ -1,0 +1,101 @@
+{
+  "_nota": "Procedencia de las portadas del blog. Todas CC0 1.0 (dominio publico): no exigen atribucion, la guardamos por trazabilidad. Regenerar con: node scripts/download-blog-covers.mjs",
+  "covers": {
+    "cuanto-cuesta-una-pagina-web-en-argentina": {
+      "title": "Calculator Numbers",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/QXPCJWO3RW.jpg",
+      "landing": "https://stocksnap.io/photo/calculator-numbers-QXPCJWO3RW",
+      "alt": "Una calculadora sobre un escritorio, en penumbra"
+    },
+    "desarrollo-a-medida-vs-wordpress": {
+      "title": "Coding Programming",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/PBTF1NEBCG.jpg",
+      "landing": "https://stocksnap.io/photo/coding-programming-PBTF1NEBCG",
+      "alt": "Manos escribiendo codigo en una notebook, junto a una taza"
+    },
+    "que-es-el-seo-on-code": {
+      "title": "Analytics Charts",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/UA9F6JGXXM.jpg",
+      "landing": "https://stocksnap.io/photo/analytics-charts-UA9F6JGXXM",
+      "alt": "Un panel de analitica web abierto en la pantalla de una notebook"
+    },
+    "core-web-vitals-velocidad-y-ventas": {
+      "title": "Golf Speed",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/YWR2BQ40GA.jpg",
+      "landing": "https://stocksnap.io/photo/golf-speed-YWR2BQ40GA",
+      "alt": "El velocimetro iluminado del tablero de un auto"
+    },
+    "sitio-institucional-tienda-online-o-sistema-de-gestion": {
+      "title": "Ecommerce Shopping",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/RZWM4T2UAD.jpg",
+      "landing": "https://stocksnap.io/photo/ecommerce-shopping-RZWM4T2UAD",
+      "alt": "Una mano sostiene una tarjeta frente a una tienda online abierta en una notebook"
+    },
+    "por-que-tu-web-necesita-mantenimiento-mensual": {
+      "title": "Wood Tools",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/00F7DB5857.jpg",
+      "landing": "https://stocksnap.io/photo/wood-tools-00F7DB5857",
+      "alt": "Herramientas de mano ordenadas sobre una mesa de madera oscura"
+    },
+    "hosting-web-en-argentina-como-elegirlo": {
+      "title": "Computer Ram",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/52KJ8KZGWY.jpg",
+      "landing": "https://stocksnap.io/photo/computer-ram-52KJ8KZGWY",
+      "alt": "Modulos de memoria y circuitos de una placa, en primer plano"
+    },
+    "html-semantico-el-detalle-que-google-mira": {
+      "title": "HTML Body Dark Code",
+      "source": "rawpixel",
+      "license": "cc0-1.0",
+      "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvbnMzNzg1LWltYWdlLWt3eXJ4bXlzLmpwZw.jpg",
+      "landing": "https://www.rawpixel.com/image/5966890/html-body-dark-code",
+      "alt": "Codigo HTML sobre fondo oscuro, con numeros de linea"
+    },
+    "como-escribir-el-contenido-de-tu-web-para-google": {
+      "title": "Writing Drawing",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/8Y0EDX4VP9.jpg",
+      "landing": "https://stocksnap.io/photo/writing-drawing-8Y0EDX4VP9",
+      "alt": "Una mano escribe en un cuaderno al lado de una taza de cafe"
+    },
+    "que-es-una-aplicacion-web-saas": {
+      "title": "Laptop Keyboard",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/QGU10TMNPE.jpg",
+      "landing": "https://stocksnap.io/photo/laptop-keyboard-QGU10TMNPE",
+      "alt": "Una notebook abierta e iluminada en una habitacion a oscuras"
+    },
+    "diseno-responsive-por-que-importa": {
+      "title": "Iphone Smartphone",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/ODN23L0AC9.jpg",
+      "landing": "https://stocksnap.io/photo/iphone-smartphone-ODN23L0AC9",
+      "alt": "Una persona sostiene un telefono con las dos manos"
+    },
+    "schema-markup-resultados-enriquecidos": {
+      "title": "Google Seo",
+      "source": "stocksnap",
+      "license": "cc0-1.0",
+      "url": "https://cdn.stocksnap.io/img-thumbs/960w/IVY2VG1MAD.jpg",
+      "landing": "https://stocksnap.io/photo/google-seo-IVY2VG1MAD",
+      "alt": "El buscador de Google abierto en la pantalla de una notebook"
+    }
+  }
+}

@@ -34,6 +34,17 @@ const allPosts: Post[] = [
   { ...schemaMarkup, Body: SchemaMarkup },
 ];
 
+/**
+ * Portadas: `public/blog/<slug>.webp`, todas al mismo tamaño.
+ * Se generan con `node scripts/download-blog-covers.mjs`.
+ */
+export const COVER_WIDTH = 960;
+export const COVER_HEIGHT = 640;
+
+export function coverSrc(slug: string): string {
+  return `/blog/${slug}.webp`;
+}
+
 /** Un post está publicado cuando su fecha ya pasó (en hora de Argentina). */
 export function isPublished(post: { publishedAt: string }, now = new Date()): boolean {
   // publishedAt es YYYY-MM-DD. Lo anclamos a las 00:00 ART (UTC-3).

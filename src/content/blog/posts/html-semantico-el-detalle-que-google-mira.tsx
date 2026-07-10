@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "accesibilidad web",
   ],
   ogHeadline: ["HTML semántico:", "lo que Google mira"],
+  coverAlt: "Código HTML sobre fondo oscuro, con números de línea",
 };
 
 export default function Body() {

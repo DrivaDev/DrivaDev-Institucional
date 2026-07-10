@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
-import { formatDate, publishedPosts } from "@/content/blog/posts";
+import {
+  COVER_HEIGHT,
+  COVER_WIDTH,
+  coverSrc,
+  formatDate,
+  publishedPosts,
+} from "@/content/blog/posts";
 import { WHATSAPP_BLOG_MESSAGE } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -44,6 +51,7 @@ export default function BlogPage() {
       description: post.description,
       datePublished: post.publishedAt,
       url: `https://drivadev.com.ar/blog/${post.slug}`,
+      image: `https://drivadev.com.ar${coverSrc(post.slug)}`,
     })),
   };
 
@@ -96,34 +104,49 @@ export default function BlogPage() {
               <h2 id="destacado-heading" className="sr-only">
                 Artículo más reciente
               </h2>
-              <ScrollReveal>
+              <ScrollReveal className="max-w-3xl mx-auto">
+                {/* La fila la mide el texto: la imagen se estira hasta ese alto
+                    y recorta, nunca lo empuja hacia abajo. */}
                 <Link href={`/blog/${featured.slug}`} className="card-project block group">
-                  <div className="flex flex-wrap items-center gap-3 mb-4">
-                    <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2.5 py-0.5 rounded-full">
-                      {featured.category}
-                    </span>
-                    <time
-                      dateTime={featured.publishedAt}
-                      className="text-xs text-white/40"
-                    >
-                      {formatDate(featured.publishedAt)}
-                    </time>
-                    <span className="text-xs text-white/40">
-                      {featured.readingMinutes} min de lectura
-                    </span>
+                  <div className="grid gap-6 md:grid-cols-[2fr_3fr] md:items-stretch">
+                    <Image
+                      src={coverSrc(featured.slug)}
+                      alt={featured.coverAlt}
+                      width={COVER_WIDTH}
+                      height={COVER_HEIGHT}
+                      priority
+                      sizes="(min-width: 768px) 17rem, 100vw"
+                      className="rounded-xl w-full object-cover aspect-[3/2] md:aspect-auto md:h-full"
+                    />
+                    <div>
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2.5 py-0.5 rounded-full">
+                          {featured.category}
+                        </span>
+                        <time
+                          dateTime={featured.publishedAt}
+                          className="text-xs text-white/40"
+                        >
+                          {formatDate(featured.publishedAt)}
+                        </time>
+                        <span className="text-xs text-white/40">
+                          {featured.readingMinutes} min de lectura
+                        </span>
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold text-acento leading-snug mb-3 group-hover:text-principal transition-colors">
+                        {featured.title}
+                      </h3>
+                      <p className="text-sm text-white/60 leading-relaxed mb-5">
+                        {featured.description}
+                      </p>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-bold text-principal group-hover:gap-3 transition-all">
+                        Leer artículo
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="text-2xl md:text-4xl font-bold text-acento leading-tight mb-4 group-hover:text-principal transition-colors">
-                    {featured.title}
-                  </h3>
-                  <p className="text-white/60 leading-relaxed max-w-3xl mb-6">
-                    {featured.description}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-principal group-hover:gap-3 transition-all">
-                    Leer artículo
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
                 </Link>
               </ScrollReveal>
             </div>
@@ -141,6 +164,14 @@ export default function BlogPage() {
                     <ScrollReveal key={post.slug} delay={(i % 3) * 90}>
                       <Link href={`/blog/${post.slug}`} className="card-project block h-full group">
                         <article className="flex flex-col h-full">
+                          <Image
+                            src={coverSrc(post.slug)}
+                            alt={post.coverAlt}
+                            width={COVER_WIDTH}
+                            height={COVER_HEIGHT}
+                            sizes="(min-width: 1024px) 22rem, (min-width: 768px) 45vw, 100vw"
+                            className="rounded-xl w-full h-auto aspect-[3/2] object-cover mb-4"
+                          />
                           <div className="flex flex-wrap items-center gap-2.5 mb-3">
                             <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2 py-0.5 rounded-full">
                               {post.category}

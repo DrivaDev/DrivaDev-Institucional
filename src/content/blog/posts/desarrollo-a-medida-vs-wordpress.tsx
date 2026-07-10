@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "desventajas de wordpress",
   ],
   ogHeadline: ["Desarrollo a medida", "vs WordPress"],
+  coverAlt: "Manos escribiendo código en una notebook, junto a una taza",
 };
 
 export default function Body() {

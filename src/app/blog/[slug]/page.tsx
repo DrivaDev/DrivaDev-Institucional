@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import {
+  COVER_HEIGHT,
+  COVER_WIDTH,
+  coverSrc,
   formatDate,
   getPost,
   isPublished,
@@ -77,7 +81,8 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
     dateModified: post.publishedAt,
     inLanguage: "es-AR",
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    image: `${url}/opengraph-image`,
+    // La portada primero: es la imagen que se ve en la página.
+    image: [`https://drivadev.com.ar${coverSrc(post.slug)}`, `${url}/opengraph-image`],
     keywords: post.keywords.join(", "),
     author: {
       "@type": "Organization",
@@ -151,8 +156,23 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
           </div>
         </header>
 
+        {/* ===== PORTADA ===== */}
+        <div className="container-main">
+          <div className="max-w-3xl mx-auto">
+            <Image
+              src={coverSrc(post.slug)}
+              alt={post.coverAlt}
+              width={COVER_WIDTH}
+              height={COVER_HEIGHT}
+              priority
+              sizes="(min-width: 768px) 48rem, 100vw"
+              className="rounded-2xl w-full h-auto aspect-[3/2] object-cover"
+            />
+          </div>
+        </div>
+
         {/* ===== CUERPO ===== */}
-        <div className="pb-16">
+        <div className="pt-4 pb-16">
           <div className="container-main">
             <div className="max-w-3xl mx-auto">
               <hr className="border-white/10 mb-12" />
@@ -201,6 +221,14 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
                 <ScrollReveal key={other.slug} delay={i * 90}>
                   <Link href={`/blog/${other.slug}`} className="card-project block h-full group">
                     <article className="flex flex-col h-full">
+                      <Image
+                        src={coverSrc(other.slug)}
+                        alt={other.coverAlt}
+                        width={COVER_WIDTH}
+                        height={COVER_HEIGHT}
+                        sizes="(min-width: 768px) 22rem, 100vw"
+                        className="rounded-xl w-full h-auto aspect-[3/2] object-cover mb-4"
+                      />
                       <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2 py-0.5 rounded-full self-start mb-3">
                         {other.category}
                       </span>

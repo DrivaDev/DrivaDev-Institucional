@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "hosting o dominio diferencia",
   ],
   ogHeadline: ["Hosting web:", "cómo elegirlo"],
+  coverAlt: "Módulos de memoria y circuitos de una placa, en primer plano",
 };
 
 export default function Body() {

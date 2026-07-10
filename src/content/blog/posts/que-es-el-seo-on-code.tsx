@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "seo on page vs on code",
   ],
   ogHeadline: ["Qué es el", "SEO on-code"],
+  coverAlt: "Un panel de analítica web abierto en la pantalla de una notebook",
 };
 
 export default function Body() {

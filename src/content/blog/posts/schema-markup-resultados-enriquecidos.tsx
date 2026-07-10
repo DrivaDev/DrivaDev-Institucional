@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "resultados enriquecidos google",
   ],
   ogHeadline: ["Schema markup y", "resultados enriquecidos"],
+  coverAlt: "El buscador de Google abierto en la pantalla de una notebook",
 };
 
 export default function Body() {

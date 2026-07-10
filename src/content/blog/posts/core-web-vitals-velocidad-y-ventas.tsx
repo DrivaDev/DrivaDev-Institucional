@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "optimizar velocidad sitio web",
   ],
   ogHeadline: ["Core Web Vitals", "y tus ventas"],
+  coverAlt: "El velocímetro iluminado del tablero de un auto",
 };
 
 export default function Body() {

@@ -18,6 +18,7 @@ export const meta: PostMeta = {
     "soporte web argentina",
   ],
   ogHeadline: ["Tu web necesita", "mantenimiento"],
+  coverAlt: "Herramientas de mano ordenadas sobre una mesa de madera oscura",
 };
 
 export default function Body() {
