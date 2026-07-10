@@ -92,12 +92,7 @@ export default function Body() {
       <p>
         Los textos, las fotos y los videos son parte del sitio. Si los tenés listos, se
         integran. Si hay que producirlos, es otro trabajo. Y el contenido no es un detalle
-        cosmético: es exactamente lo que Google lee para decidir si te muestra o no. Sobre
-        esto escribimos en profundidad en{" "}
-        <Link href="/blog/como-escribir-el-contenido-de-tu-web-para-google">
-          cómo escribir el contenido de tu web para que Google te encuentre
-        </Link>
-        .
+        cosmético: es exactamente lo que Google lee para decidir si te muestra o no.
       </p>
 
       <h3>5. Qué pasa después del lanzamiento</h3>
@@ -116,11 +111,7 @@ export default function Body() {
         </li>
         <li>
           <strong>Hosting:</strong> dónde vive tu sitio. Varía muchísimo según la
-          infraestructura. Lo desarrollamos en{" "}
-          <Link href="/blog/hosting-web-en-argentina-como-elegirlo">
-            esta guía sobre cómo elegir hosting
-          </Link>
-          .
+          infraestructura, y el barato se paga con velocidad de carga.
         </li>
         <li>
           <strong>Mantenimiento:</strong> el costo de que tu sitio siga funcionando bien.
@@ -139,14 +130,6 @@ export default function Body() {
         el negocio crece y necesitás algo que la plantilla no contempla, la respuesta suele
         ser rehacer todo. Terminás pagando dos veces.
       </p>
-      <p>
-        Ampliamos la comparación completa en{" "}
-        <Link href="/blog/desarrollo-a-medida-vs-wordpress">
-          desarrollo a medida contra WordPress
-        </Link>
-        .
-      </p>
-
       <h2>Cómo leer un presupuesto de desarrollo web</h2>
       <p>Antes de firmar, pedí que el presupuesto responda estas preguntas:</p>
       <ul>

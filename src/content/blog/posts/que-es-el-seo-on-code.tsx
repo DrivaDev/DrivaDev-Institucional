@@ -73,33 +73,22 @@ export default function Body() {
       <p>
         Un <code>h1</code> por página, jerarquía de encabezados sin saltos, etiquetas que
         describen lo que contienen. Es la diferencia entre entregarle a Google un documento
-        ordenado o una pila de cajas sin etiquetar. Lo desarrollamos en{" "}
-        <Link href="/blog/html-semantico-el-detalle-que-google-mira">
-          HTML semántico, el detalle invisible que Google sí mira
-        </Link>
-        .
+        ordenado o una pila de cajas sin etiquetar.
       </p>
 
       <h3>3. Velocidad y Core Web Vitals</h3>
       <p>
         Google mide cuánto tarda en aparecer el contenido principal, cuánto salta el layout
         mientras carga y qué tan rápido responde a la primera interacción. Son señales de
-        ranking confirmadas. Todo eso se define en el código, no en un plugin. Más en{" "}
-        <Link href="/blog/core-web-vitals-velocidad-y-ventas">
-          Core Web Vitals y su impacto en las ventas
-        </Link>
-        .
+        ranking confirmadas. Todo eso se define en el código, no en un plugin.
       </p>
 
       <h3>4. Datos estructurados</h3>
       <p>
         Son un bloque de código que le explica a Google qué es cada cosa en tu página: esto
         es una empresa, esto es un artículo, esto es una pregunta frecuente. Bien
-        implementados, habilitan los resultados enriquecidos. Lo cubrimos en{" "}
-        <Link href="/blog/schema-markup-resultados-enriquecidos">
-          schema markup y resultados enriquecidos
-        </Link>
-        .
+        implementados, habilitan los resultados enriquecidos: las estrellas, las preguntas
+        desplegables y las migas de pan que ves en los resultados.
       </p>
 
       <h3>5. Sitemap y robots</h3>
@@ -137,10 +126,16 @@ export default function Body() {
       </p>
       <p>
         Si el sitio se construyó sobre un tema que genera HTML desordenado, o sobre un stack
-        que renderiza todo del lado del cliente, las opciones son parchar o rehacer. Por eso
-        en Driva Dev el SEO on-code no es un servicio adicional que se cotiza aparte: es un
-        requisito no negociable de todo lo que entregamos. Igual que el sitio sea{" "}
-        <Link href="/blog/diseno-responsive-por-que-importa">100% responsive</Link>.
+        que renderiza todo del lado del cliente, las opciones son parchar o rehacer. Es una de
+        las razones por las que preferimos{" "}
+        <Link href="/blog/desarrollo-a-medida-vs-wordpress">
+          construir desde cero antes que partir de una plantilla
+        </Link>
+        .
+      </p>
+      <p>
+        Por eso en Driva Dev el SEO on-code no es un servicio adicional que se cotiza aparte:
+        es un requisito no negociable de todo lo que entregamos.
       </p>
 
       <h2>Cómo saber si tu sitio actual está bien</h2>

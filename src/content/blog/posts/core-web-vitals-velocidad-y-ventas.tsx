@@ -123,11 +123,7 @@ export default function Body() {
         </li>
         <li>
           <strong>Hosting lento.</strong> Si el servidor tarda en responder, todo lo demás
-          arranca tarde. Ver{" "}
-          <Link href="/blog/hosting-web-en-argentina-como-elegirlo">
-            cómo elegir hosting
-          </Link>
-          .
+          arranca tarde. Es el primer eslabón de la cadena.
         </li>
       </ul>
 

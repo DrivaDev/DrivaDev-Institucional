@@ -111,9 +111,8 @@ export default function Body() {
           MenuDig
         </a>{" "}
         es un menú digital por QR para restaurantes. Los hicimos para nosotros, así que
-        sabemos exactamente lo que implica sostener uno. Ampliamos el tema en{" "}
-        <Link href="/blog/que-es-una-aplicacion-web-saas">qué es una aplicación web SaaS</Link>
-        .
+        sabemos exactamente lo que implica sostener uno: facturación recurrente, aislamiento
+        de datos entre clientes y soporte que no se toma vacaciones.
       </p>
 
       <h2>Cómo decidir en cinco preguntas</h2>

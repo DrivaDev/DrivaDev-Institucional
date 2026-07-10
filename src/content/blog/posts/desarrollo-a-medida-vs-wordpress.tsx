@@ -56,9 +56,8 @@ export default function Body() {
       </p>
       <p>
         En un desarrollo a medida, el navegador descarga exactamente lo que necesita para
-        pintar tu página, y nada más. La diferencia se nota en las{" "}
-        <Link href="/blog/core-web-vitals-velocidad-y-ventas">Core Web Vitals</Link>, que son
-        las métricas que Google usa para decidir a quién muestra primero.
+        pintar tu página, y nada más. La diferencia se nota en las Core Web Vitals, que son
+        las métricas de velocidad que Google usa para decidir a quién muestra primero.
       </p>
       <p>
         Y no es un tema técnico abstracto: cada segundo extra de carga cuesta conversiones.
@@ -73,16 +72,10 @@ export default function Body() {
       </p>
       <p>
         Si el tema usa un <code>div</code> donde debería ir un <code>article</code>, o mete
-        tres <code>h1</code> en la misma página, ningún plugin lo corrige. Hablamos de esto
-        en detalle en{" "}
-        <Link href="/blog/html-semantico-el-detalle-que-google-mira">
-          HTML semántico, el detalle invisible que Google sí mira
-        </Link>
-        .
+        tres <code>h1</code> en la misma página, ningún plugin lo corrige.
       </p>
       <p>
-        En un proyecto a medida, la estructura semántica y el{" "}
-        <Link href="/blog/que-es-el-seo-on-code">SEO on-code</Link> se definen desde la
+        En un proyecto a medida, la estructura semántica y el SEO técnico se definen desde la
         primera línea. No es una capa que se agrega al final: es parte de cómo está
         construido el sitio.
       </p>
@@ -102,11 +95,8 @@ export default function Body() {
       </ul>
       <p>
         En un desarrollo a medida hay menos piezas móviles, y las que hay las elegimos
-        nosotros. Igual necesita mantenimiento, sobre eso no hay magia. Lo explicamos en{" "}
-        <Link href="/blog/por-que-tu-web-necesita-mantenimiento-mensual">
-          por qué tu web necesita mantenimiento mensual
-        </Link>
-        .
+        nosotros. Igual necesita mantenimiento, sobre eso no hay magia: simplemente hay mucho
+        menos que se pueda romper solo.
       </p>
 
       <h2>El costo: dónde está la trampa</h2>
