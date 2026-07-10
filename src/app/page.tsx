@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
-import { formatDate, publishedPosts } from "@/content/blog/posts";
+import { COVER_HEIGHT, COVER_WIDTH, coverSrc, publishedPosts } from "@/content/blog/posts";
 
 export const revalidate = 3600;
 
@@ -361,52 +362,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== ÚLTIMOS ARTÍCULOS ===== */}
+      {/* ===== BLOG ===== */}
       {latestPosts.length > 0 && (
         <section className="section" aria-labelledby="blog-heading">
           <div className="container-main">
             <ScrollReveal>
-              <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
-                <div className="max-w-xl">
-                  <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold text-acento mb-3">
-                    Del blog
-                  </h2>
-                  <p className="text-white/60 leading-relaxed">
-                    Escribimos sobre desarrollo, SEO y decisiones de negocio digital. Sin humo
-                    ni recetas mágicas.
-                  </p>
-                </div>
-                <Link href="/blog" className="btn-secondary">
-                  Ver todos
-                </Link>
+              <div className="flex flex-col items-center text-center mb-12">
+                <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold text-acento">
+                  Nuestros últimos blogs
+                </h2>
+                <p className="text-white/60 leading-relaxed mt-3 max-w-lg">
+                  Escribimos sobre desarrollo, SEO y decisiones de negocio digital. Sin humo
+                  ni recetas mágicas.
+                </p>
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex flex-wrap justify-center gap-8">
               {latestPosts.map((post, i) => (
-                <ScrollReveal key={post.slug} delay={i * 90}>
-                  <Link href={`/blog/${post.slug}`} className="card-project block h-full group">
-                    <article className="flex flex-col h-full">
-                      <div className="flex flex-wrap items-center gap-2.5 mb-3">
-                        <span className="text-xs font-medium text-principal bg-principal/15 border border-principal/25 px-2 py-0.5 rounded-full">
-                          {post.category}
-                        </span>
-                        <span className="text-xs text-white/35">{post.readingMinutes} min</span>
-                      </div>
-                      <h3 className="text-lg font-bold text-acento leading-snug mb-2.5 group-hover:text-principal transition-colors">
+                <ScrollReveal key={post.slug} delay={i * 90} className="max-w-72 w-full">
+                  {/* El hover levanta la tarjeta entera; el reveal ya usa el
+                      transform del contenedor, por eso va sobre el enlace. */}
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="block group hover:-translate-y-0.5 transition duration-300"
+                  >
+                    <article>
+                      <Image
+                        src={coverSrc(post.slug)}
+                        alt={post.coverAlt}
+                        width={COVER_WIDTH}
+                        height={COVER_HEIGHT}
+                        sizes="(min-width: 640px) 18rem, 100vw"
+                        className="rounded-xl w-full h-auto aspect-[3/2] object-cover"
+                      />
+                      <h3 className="text-base font-medium text-acento leading-snug mt-3 group-hover:text-principal transition-colors">
                         {post.title}
                       </h3>
-                      <p className="text-sm text-white/55 leading-relaxed flex-1">
-                        {post.description}
-                      </p>
-                      <time dateTime={post.publishedAt} className="text-xs text-white/35 mt-5 block">
-                        {formatDate(post.publishedAt)}
-                      </time>
+                      <p className="text-xs font-medium text-principal mt-1">{post.category}</p>
                     </article>
                   </Link>
                 </ScrollReveal>
               ))}
             </div>
+
+            <ScrollReveal delay={270}>
+              <div className="text-center mt-12">
+                <Link href="/blog" className="btn-secondary inline-block">
+                  Ver todos
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
       )}
