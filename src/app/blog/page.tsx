@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import RootFigure from "@/components/RootFigure";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import {
@@ -72,21 +73,30 @@ export default function BlogPage() {
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-16">
         <div className="container-main">
-          <ScrollReveal>
-            <div className="max-w-3xl">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Blog
-              </span>
-              <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Desarrollo web, SEO y negocio digital
-              </h1>
-              <p className="text-lg text-white/65 leading-relaxed max-w-2xl">
-                Escribimos sobre lo que hacemos todos los días: cómo se construye un sitio
-                rápido, qué mira Google de verdad y cómo decidir en qué gastar tu presupuesto.
-                Sin humo ni recetas mágicas.
-              </p>
-            </div>
-          </ScrollReveal>
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,260px)]">
+            <ScrollReveal>
+              <div className="max-w-3xl">
+                <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
+                  Blog
+                </span>
+                <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
+                  Desarrollo web, SEO y negocio digital
+                </h1>
+                <p className="text-lg text-white/65 leading-relaxed max-w-2xl">
+                  Escribimos sobre lo que hacemos todos los días: cómo se construye un sitio
+                  rápido, qué mira Google de verdad y cómo decidir en qué gastar tu presupuesto.
+                  Sin humo ni recetas mágicas.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <RootFigure
+              src="/root-leyendo.webp"
+              alt="Root, la mascota de Driva Dev, leyendo un libro"
+              width={600}
+              height={694}
+            />
+          </div>
         </div>
       </section>
 

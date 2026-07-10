@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RootFigure from "@/components/RootFigure";
 import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
 
@@ -49,20 +50,29 @@ export default function ContactoPage() {
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-20">
         <div className="container-main">
-          <ScrollReveal>
-            <div className="max-w-2xl">
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Contacto
-              </span>
-              <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Hablemos de tu proyecto web
-              </h1>
-              <p className="text-lg text-white/65 leading-relaxed">
-                Contanos sobre tu idea o tu negocio. Sin compromisos. Te respondemos en menos
-                de 24 horas con una perspectiva honesta de lo que podemos hacer por vos.
-              </p>
-            </div>
-          </ScrollReveal>
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)]">
+            <ScrollReveal>
+              <div className="max-w-2xl">
+                <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
+                  Contacto
+                </span>
+                <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
+                  Hablemos de tu proyecto web
+                </h1>
+                <p className="text-lg text-white/65 leading-relaxed">
+                  Contanos sobre tu idea o tu negocio. Sin compromisos. Te respondemos en menos
+                  de 24 horas con una perspectiva honesta de lo que podemos hacer por vos.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <RootFigure
+              src="/root-pensando.webp"
+              alt="Root, la mascota de Driva Dev, pensativo con un café"
+              width={640}
+              height={605}
+            />
+          </div>
         </div>
       </section>
 

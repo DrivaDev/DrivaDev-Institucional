@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import RootFigure from "@/components/RootFigure";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 
@@ -235,20 +236,30 @@ export default function ServiciosPage() {
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-20">
         <div className="container-main">
-          <div className="max-w-3xl">
-            <ScrollReveal>
-              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                Servicios
-              </span>
-              <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Desarrollo web a medida para empresas y emprendedores
-              </h1>
-              <p className="text-lg md:text-xl text-white/65 leading-relaxed max-w-2xl">
-                Desarrollamos cualquier tipo de sitio o aplicación web. No usamos plantillas ni
-                soluciones genéricas: cada proyecto se diseña y construye desde cero, pensado
-                específicamente para tu negocio, tu industria y tus objetivos.
-              </p>
-            </ScrollReveal>
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,260px)]">
+            <div className="max-w-3xl">
+              <ScrollReveal>
+                <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
+                  Servicios
+                </span>
+                <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
+                  Desarrollo web a medida para empresas y emprendedores
+                </h1>
+                <p className="text-lg md:text-xl text-white/65 leading-relaxed max-w-2xl">
+                  Desarrollamos cualquier tipo de sitio o aplicación web. No usamos plantillas ni
+                  soluciones genéricas: cada proyecto se diseña y construye desde cero, pensado
+                  específicamente para tu negocio, tu industria y tus objetivos.
+                </p>
+              </ScrollReveal>
+            </div>
+
+            <RootFigure
+              src="/root-senalando.webp"
+              alt="Root, la mascota de Driva Dev, señalando al frente"
+              width={640}
+              height={1203}
+              groundShadow
+            />
           </div>
         </div>
       </section>

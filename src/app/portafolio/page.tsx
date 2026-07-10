@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RootFigure from "@/components/RootFigure";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 
@@ -140,17 +141,27 @@ export default async function PortafolioPage() {
       {/* ===== HERO ===== */}
       <section className="pt-36 pb-20">
         <div className="container-main">
-          <ScrollReveal>
-            <div className="max-w-2xl">
-              <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                Proyectos de desarrollo web a medida
-              </h1>
-              <p className="text-lg text-white/65 leading-relaxed">
-                Proyectos reales, problemas reales. Acá podés ver cómo trabajamos
-                y lo que somos capaces de entregar.
-              </p>
-            </div>
-          </ScrollReveal>
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,260px)]">
+            <ScrollReveal>
+              <div className="max-w-2xl">
+                <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
+                  Proyectos de desarrollo web a medida
+                </h1>
+                <p className="text-lg text-white/65 leading-relaxed">
+                  Proyectos reales, problemas reales. Acá podés ver cómo trabajamos
+                  y lo que somos capaces de entregar.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <RootFigure
+              src="/root-festejando.webp"
+              alt="Root, la mascota de Driva Dev, festejando con los brazos en alto"
+              width={640}
+              height={1106}
+              groundShadow
+            />
+          </div>
         </div>
       </section>
 
