@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -151,7 +152,7 @@ export default function Body() {
       <p>
         En Driva Dev, que un sitio esté semánticamente perfecto no es una opción del
         presupuesto: es un requisito de todo lo que entregamos.{" "}
-        <Link href="/contacto">Escribinos</Link> si querés que revisemos el tuyo.
+        <WhatsAppLink>Escribinos</WhatsAppLink> si querés que revisemos el tuyo.
       </p>
     </>
   );

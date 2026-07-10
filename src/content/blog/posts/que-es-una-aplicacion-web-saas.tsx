@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -186,7 +187,7 @@ export default function Body() {
       </p>
       <p>
         Si tenés una idea y querés una opinión honesta sobre si conviene o no,{" "}
-        <Link href="/contacto">escribinos</Link>. A veces la respuesta más útil es que
+        <WhatsAppLink>escribinos</WhatsAppLink>. A veces la respuesta más útil es que
         todavía no.
       </p>
     </>

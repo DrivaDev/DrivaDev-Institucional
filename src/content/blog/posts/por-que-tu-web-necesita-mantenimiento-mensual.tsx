@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -140,7 +141,7 @@ export default function Body() {
       </p>
       <p>
         Si tenés una web y no sabés en qué estado está,{" "}
-        <Link href="/contacto">escribinos</Link>. La revisamos y te contamos qué encontramos.
+        <WhatsAppLink>escribinos</WhatsAppLink>. La revisamos y te contamos qué encontramos.
       </p>
     </>
   );

@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -144,7 +145,7 @@ export default function Body() {
         En Driva Dev es uno de nuestros requisitos no negociables, junto con la velocidad y el{" "}
         <Link href="/blog/que-es-el-seo-on-code">SEO on-code</Link>. Si querés que revisemos
         cómo se comporta tu sitio actual en móvil,{" "}
-        <Link href="/contacto">mandanos la URL</Link>.
+        <WhatsAppLink>mandanos la URL</WhatsAppLink>.
       </p>
     </>
   );

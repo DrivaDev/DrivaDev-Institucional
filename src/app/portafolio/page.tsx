@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 export const metadata: Metadata = {
   title: "Portafolio de Proyectos de Desarrollo Web",
@@ -280,9 +280,10 @@ export default async function PortafolioPage() {
             <p className="text-white/60 mb-8 max-w-lg mx-auto">
               Escribinos cuando quieras. Sin formulario eterno ni reunión de 40 minutos.
             </p>
-            <Link href="/contacto" className="btn-primary inline-block">
-              Hablar con nosotros
-            </Link>
+            <WhatsAppCTA
+              label="Hablar con nosotros"
+              message="Hola! Vi su portafolio y quería consultarles por un proyecto."
+            />
           </ScrollReveal>
         </div>
       </section>

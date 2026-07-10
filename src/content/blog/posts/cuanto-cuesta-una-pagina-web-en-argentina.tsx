@@ -1,4 +1,4 @@
-import Link from "next/link";
+import WhatsAppLink from "@/components/WhatsAppLink";
 import type { PostMeta } from "../types";
 
 export const meta: PostMeta = {
@@ -154,7 +154,7 @@ export default function Body() {
       </p>
       <p>
         Si querés un número real para tu caso concreto,{" "}
-        <Link href="/contacto">contanos qué tenés en mente</Link>. Te respondemos en menos
+        <WhatsAppLink>contanos qué tenés en mente</WhatsAppLink>. Te respondemos en menos
         de 24 horas con una perspectiva honesta, aunque la respuesta sea que todavía no
         necesitás una web.
       </p>

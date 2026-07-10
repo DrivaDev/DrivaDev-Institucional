@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -158,7 +159,7 @@ export default function Body() {
       </p>
       <p>
         Si no sabés dónde está alojado tu sitio o a nombre de quién está el dominio,{" "}
-        <Link href="/contacto">escribinos</Link>. Lo averiguamos juntos.
+        <WhatsAppLink>escribinos</WhatsAppLink>. Lo averiguamos juntos.
       </p>
     </>
   );

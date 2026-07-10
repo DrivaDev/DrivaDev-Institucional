@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -175,7 +176,7 @@ export default function Body() {
       <p>
         En Driva Dev empezamos siempre por entender tu negocio antes de proponer nada. Si
         después de esa charla creemos que no necesitás un desarrollo a medida, te lo vamos a
-        decir. <Link href="/contacto">Escribinos</Link> y lo vemos juntos.
+        decir. <WhatsAppLink>Escribinos</WhatsAppLink> y lo vemos juntos.
       </p>
     </>
   );

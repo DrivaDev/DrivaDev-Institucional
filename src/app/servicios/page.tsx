@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 export const metadata: Metadata = {
   title: "Servicios de Desarrollo Web a Medida en Argentina",
@@ -537,9 +538,10 @@ export default function ServiciosPage() {
             <p className="text-white/60 mb-8 max-w-lg mx-auto">
               Contanos tu idea y armamos una propuesta específica para vos. Sin costo ni compromiso.
             </p>
-            <Link href="/contacto" className="btn-primary inline-block">
-              Solicitar propuesta
-            </Link>
+            <WhatsAppCTA
+              label="Solicitar propuesta"
+              message="Hola! Vi sus servicios y quería pedirles una propuesta para mi negocio."
+            />
           </ScrollReveal>
         </div>
       </section>

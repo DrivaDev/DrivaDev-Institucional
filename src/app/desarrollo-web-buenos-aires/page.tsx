@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 export const metadata: Metadata = {
   title: "Desarrollo Web a Medida en Buenos Aires",
@@ -182,9 +183,10 @@ export default function DesarrolloWebBuenosAiresPage() {
                 sin intermediarios. Hablás siempre con quien escribe el código.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link href="/contacto" className="btn-primary">
-                  Pedir presupuesto
-                </Link>
+                <WhatsAppCTA
+                  label="Pedir presupuesto"
+                  message="Hola! Soy de Buenos Aires y quería pedirles un presupuesto para un proyecto web."
+                />
                 <Link href="/portafolio" className="btn-secondary">
                   Ver proyectos
                 </Link>
@@ -389,9 +391,10 @@ export default function DesarrolloWebBuenosAiresPage() {
               Contanos qué necesita tu negocio. Te respondemos en menos de 24 horas con una
               perspectiva honesta, sin costo ni compromiso.
             </p>
-            <Link href="/contacto" className="btn-primary inline-block">
-              Hablar de mi proyecto
-            </Link>
+            <WhatsAppCTA
+              label="Hablar de mi proyecto"
+              message="Hola! Soy de Buenos Aires y tengo un proyecto web en mente."
+            />
           </ScrollReveal>
         </div>
       </section>

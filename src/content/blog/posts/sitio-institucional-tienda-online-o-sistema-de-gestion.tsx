@@ -1,3 +1,4 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
 import Link from "next/link";
 import type { PostMeta } from "../types";
 
@@ -153,7 +154,7 @@ export default function Body() {
       </p>
       <p>
         Si no tenés claro dónde encaja tu caso,{" "}
-        <Link href="/contacto">contanos qué hacés</Link> y lo pensamos juntos. Sin costo ni
+        <WhatsAppLink>contanos qué hacés</WhatsAppLink> y lo pensamos juntos. Sin costo ni
         compromiso.
       </p>
     </>

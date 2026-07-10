@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { formatDate, publishedPosts } from "@/content/blog/posts";
 
 export const revalidate = 3600;
@@ -142,9 +143,10 @@ export default function HomePage() {
               Primero entendemos tu negocio, después escribimos el código.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/contacto" className="btn-primary">
-                Solicitar proyecto
-              </Link>
+              <WhatsAppCTA
+                label="Solicitar proyecto"
+                message="Hola! Quería consultarles por el desarrollo de un proyecto web."
+              />
               <Link href="/portafolio" className="btn-secondary">
                 Ver portafolio
               </Link>
@@ -419,9 +421,10 @@ export default function HomePage() {
             <p className="text-lg text-white/60 max-w-xl mx-auto mb-10 leading-relaxed">
               Escribinos cuando quieras. Sin reuniones previas ni presupuesto de 48 hs.
             </p>
-            <Link href="/contacto" className="btn-primary inline-block">
-              Hablar de mi proyecto
-            </Link>
+            <WhatsAppCTA
+              label="Hablar de mi proyecto"
+              message="Hola! Tengo un proyecto en mente y quería consultarles."
+            />
           </ScrollReveal>
         </div>
       </section>
