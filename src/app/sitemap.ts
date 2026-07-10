@@ -7,6 +7,14 @@ export const revalidate = 3600;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://drivadev.com.ar";
+  const posts = publishedPosts();
+
+  // El indice del blog cambia cada vez que se publica un articulo, asi que su
+  // lastModified es la fecha del mas reciente. Sin esto le diriamos a Google
+  // que /blog no cambia nunca, y tardaria en volver a rastrearlo.
+  const blogLastModified = posts.length
+    ? new Date(`${posts[0].publishedAt}T00:00:00-03:00`)
+    : new Date("2026-07-09");
 
   // Fechas estáticas: actualizar solo cuando la página cambia contenido real.
   // new Date() en cada build genera señales de fecha falsas que Google ignora.
@@ -31,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${base}/blog`,
-      lastModified: new Date("2026-07-09"),
+      lastModified: blogLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
@@ -50,12 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Solo los artículos que ya llegaron a su fecha de publicación.
-  const posts: MetadataRoute.Sitemap = publishedPosts().map((post) => ({
+  const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${base}/blog/${post.slug}`,
     lastModified: new Date(`${post.publishedAt}T00:00:00-03:00`),
     changeFrequency: "yearly",
     priority: 0.6,
   }));
 
-  return [...pages, ...posts];
+  return [...pages, ...postEntries];
 }
