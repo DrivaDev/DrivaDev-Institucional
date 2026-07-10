@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import RootFigure from "@/components/RootFigure";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
@@ -335,19 +334,6 @@ export default function ServiciosPage() {
               </ScrollReveal>
             ))}
           </div>
-
-          <ScrollReveal delay={270}>
-            <p className="text-sm text-white/50 leading-relaxed mt-10 max-w-2xl">
-              ¿No sabés en cuál encaja tu caso? Lo desarrollamos en{" "}
-              <Link
-                href="/blog/sitio-institucional-tienda-online-o-sistema-de-gestion"
-                className="text-principal font-medium underline underline-offset-4 decoration-principal/40 hover:decoration-principal"
-              >
-                esta guía para elegir qué tipo de web necesita tu negocio
-              </Link>
-              .
-            </p>
-          </ScrollReveal>
         </div>
       </section>
 

@@ -144,6 +144,9 @@ export default async function PortafolioPage() {
           <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,260px)]">
             <ScrollReveal>
               <div className="max-w-2xl">
+                <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
+                  Portafolio
+                </span>
                 <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
                   Proyectos de desarrollo web a medida
                 </h1>
