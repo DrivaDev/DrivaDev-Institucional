@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import RootFigure from "@/components/RootFigure";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { COVER_HEIGHT, COVER_WIDTH, coverSrc, publishedPosts } from "@/content/blog/posts";
@@ -131,27 +132,37 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0908]/90 via-[#0A0908]/50 to-transparent pointer-events-none" />
 
         <div className="container-main relative pt-28 pb-20" style={{ zIndex: 2 }}>
-          <div className="max-w-2xl">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-              Desarrollo web · Argentina
-            </span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-acento leading-[1.1] mb-6">
-              Desarrollo web a medida,{" "}
-              <span className="text-principal">construido para crecer.</span>
-            </h1>
-            <p className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl">
-              Desarrollamos sitios y aplicaciones web a medida que generan resultados reales.
-              Primero entendemos tu negocio, después escribimos el código.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <WhatsAppCTA
-                label="Solicitar proyecto"
-                message="Hola! Quería consultarles por el desarrollo de un proyecto web."
-              />
-              <Link href="/portafolio" className="btn-secondary">
-                Ver portafolio
-              </Link>
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:gap-10">
+            <div className="max-w-2xl">
+              <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
+                Desarrollo web · Argentina
+              </span>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-acento leading-[1.1] mb-6">
+                Desarrollo web a medida,{" "}
+                <span className="text-principal">construido para crecer.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl">
+                Desarrollamos sitios y aplicaciones web a medida que generan resultados reales.
+                Primero entendemos tu negocio, después escribimos el código.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <WhatsAppCTA
+                  label="Solicitar proyecto"
+                  message="Hola! Quería consultarles por el desarrollo de un proyecto web."
+                />
+                <Link href="/portafolio" className="btn-secondary">
+                  Ver portafolio
+                </Link>
+              </div>
             </div>
+
+            <RootFigure
+              src="/root.webp"
+              alt="Root, la mascota de Driva Dev, de brazos cruzados"
+              width={880}
+              height={1320}
+              groundShadow
+            />
           </div>
         </div>
       </section>
@@ -254,15 +265,24 @@ export default function HomePage() {
       <section className="section" aria-labelledby="unidades-heading">
         <div className="container-main">
           <ScrollReveal>
-            <div className="max-w-2xl mb-14">
-              <h2 id="unidades-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
-                No solo desarrollamos para otros
-              </h2>
-              <p className="text-white/65 leading-relaxed">
-                Driva Dev tiene dos patas. Una construye software para clientes. La otra
-                construye y sostiene productos propios. La segunda es la que nos mantiene
-                honestos: cargamos con las consecuencias de cada decisión técnica que tomamos.
-              </p>
+            <div className="grid items-center gap-10 mb-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+              <div className="max-w-2xl">
+                <h2 id="unidades-heading" className="text-3xl md:text-4xl font-bold text-acento mb-5">
+                  No solo desarrollamos para otros
+                </h2>
+                <p className="text-white/65 leading-relaxed">
+                  Driva Dev tiene dos patas. Una construye software para clientes. La otra
+                  construye y sostiene productos propios. La segunda es la que nos mantiene
+                  honestos: cargamos con las consecuencias de cada decisión técnica que tomamos.
+                </p>
+              </div>
+
+              <RootFigure
+                src="/root-trabajando.webp"
+                alt="Root, la mascota de Driva Dev, programando en su notebook"
+                width={760}
+                height={676}
+              />
             </div>
           </ScrollReveal>
 
@@ -367,18 +387,34 @@ export default function HomePage() {
         <section className="section" aria-labelledby="blog-heading">
           <div className="container-main">
             <ScrollReveal>
-              <div className="flex flex-col items-center text-center mb-12">
-                <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold text-acento">
-                  Nuestros últimos blogs
-                </h2>
-                <p className="text-white/60 leading-relaxed mt-3 max-w-lg">
-                  Escribimos sobre desarrollo, SEO y decisiones de negocio digital. Sin humo
-                  ni recetas mágicas.
-                </p>
+              <div className="grid items-center gap-10 mb-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)]">
+                <div className="max-w-xl">
+                  <h2 id="blog-heading" className="text-3xl md:text-4xl font-bold text-acento">
+                    Nuestros últimos blogs
+                  </h2>
+                  <p className="text-white/60 leading-relaxed mt-3">
+                    Escribimos sobre desarrollo, SEO y decisiones de negocio digital. Sin humo
+                    ni recetas mágicas: lo que publicamos sale de proyectos reales, de errores
+                    que cometimos y de las preguntas que nos hacen los clientes antes de
+                    contratarnos.
+                  </p>
+                  <p className="text-white/60 leading-relaxed mt-4">
+                    Si estás por encarar una web y no sabés por dónde empezar, cuánto debería
+                    costarte o por qué el sitio que ya tenés no aparece en Google, es probable
+                    que la respuesta esté acá abajo.
+                  </p>
+                </div>
+
+                <RootFigure
+                  src="/root-leyendo.webp"
+                  alt="Root, la mascota de Driva Dev, leyendo un libro"
+                  width={600}
+                  height={694}
+                />
               </div>
             </ScrollReveal>
 
-            <div className="flex flex-wrap justify-center gap-8">
+            <div className="flex flex-wrap justify-start gap-8">
               {latestPosts.map((post, i) => (
                 <ScrollReveal key={post.slug} delay={i * 90} className="max-w-72 w-full">
                   {/* El hover levanta la tarjeta entera; el reveal ya usa el
