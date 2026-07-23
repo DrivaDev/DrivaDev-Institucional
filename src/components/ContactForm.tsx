@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import type { Dictionary } from "@/content/i18n";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export default function ContactForm() {
+export default function ContactForm({ t }: { t: Dictionary["form"] }) {
   const [form, setForm] = useState({ nombre: "", email: "", mensaje: "" });
   const [status, setStatus] = useState<Status>("idle");
 
@@ -40,12 +41,12 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       className="space-y-5"
-      aria-label="Formulario de contacto"
+      aria-label={t.aria}
       noValidate
     >
       <div>
         <label htmlFor="nombre" className="block text-sm font-medium text-white/70 mb-1.5">
-          Nombre
+          {t.nameLabel}
         </label>
         <input
           id="nombre"
@@ -54,7 +55,7 @@ export default function ContactForm() {
           required
           value={form.nombre}
           onChange={handleChange}
-          placeholder="Tu nombre completo"
+          placeholder={t.namePlaceholder}
           className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition"
           aria-required="true"
         />
@@ -62,7 +63,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-1.5">
-          Email
+          {t.emailLabel}
         </label>
         <input
           id="email"
@@ -71,7 +72,7 @@ export default function ContactForm() {
           required
           value={form.email}
           onChange={handleChange}
-          placeholder="tu@email.com"
+          placeholder={t.emailPlaceholder}
           className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition"
           aria-required="true"
         />
@@ -79,7 +80,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="mensaje" className="block text-sm font-medium text-white/70 mb-1.5">
-          Mensaje
+          {t.messageLabel}
         </label>
         <textarea
           id="mensaje"
@@ -88,7 +89,7 @@ export default function ContactForm() {
           rows={5}
           value={form.mensaje}
           onChange={handleChange}
-          placeholder="Contanos sobre tu proyecto o idea..."
+          placeholder={t.messagePlaceholder}
           className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white/90 placeholder:text-white/30 focus:outline-none focus:border-principal focus:ring-2 focus:ring-principal/20 transition resize-none"
           aria-required="true"
         />
@@ -103,7 +104,7 @@ export default function ContactForm() {
           <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          ¡Mensaje enviado! Te contactamos en menos de 24 horas.
+          {t.success}
         </div>
       )}
 
@@ -115,7 +116,7 @@ export default function ContactForm() {
           <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          Hubo un problema al enviar el mensaje. Intentá por WhatsApp o email directamente.
+          {t.error}
         </div>
       )}
 
@@ -131,10 +132,10 @@ export default function ContactForm() {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            Enviando...
+            {t.sending}
           </>
         ) : (
-          "Enviar mensaje"
+          t.submit
         )}
       </button>
     </form>

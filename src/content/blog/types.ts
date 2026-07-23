@@ -1,5 +1,12 @@
+import type { Locale } from "@/lib/i18n";
+
 export type PostMeta = {
-  /** Segmento de URL: /blog/<slug> */
+  /**
+   * Idioma del artículo. Se omite en los archivos de post: el registro de
+   * `posts.ts` completa `"es"`, que es lo que son todos hoy.
+   */
+  locale?: Locale;
+  /** Segmento de URL: /blog/<slug> (los de inglés cuelgan de /en/blog/<slug>) */
   slug: string;
   /** H1 del artículo */
   title: string;
@@ -26,5 +33,6 @@ export type PostMeta = {
 };
 
 export type Post = PostMeta & {
+  locale: Locale;
   Body: React.ComponentType;
 };

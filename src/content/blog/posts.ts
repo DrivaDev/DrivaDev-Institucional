@@ -1,3 +1,4 @@
+import { defaultLocale, type Locale } from "@/lib/i18n";
 import type { Post } from "./types";
 
 import ComoEscribirContenido, { meta as comoEscribirContenido } from "./posts/como-escribir-el-contenido-de-tu-web-para-google";
@@ -18,20 +19,24 @@ import TiposDeWeb, { meta as tiposDeWeb } from "./posts/sitio-institucional-tien
  * Cada `publishedAt` cae un lunes. Los que todavía no llegaron a su fecha
  * no se listan, no entran al sitemap y su URL devuelve 404.
  * Ver `publishedPosts()`.
+ *
+ * `locale` sale de `defaultLocale` salvo que el artículo lo declare: hoy todos
+ * están en español. Un artículo en inglés se agrega igual, con `locale: "en"`
+ * en su `meta`, y aparece solo en /en/blog.
  */
 const allPosts: Post[] = [
-  { ...cuantoCuesta, Body: CuantoCuesta },
-  { ...desarrolloVsWordpress, Body: DesarrolloVsWordpress },
-  { ...seoOnCode, Body: SeoOnCode },
-  { ...coreWebVitals, Body: CoreWebVitals },
-  { ...tiposDeWeb, Body: TiposDeWeb },
-  { ...mantenimiento, Body: Mantenimiento },
-  { ...hostingWeb, Body: HostingWeb },
-  { ...htmlSemantico, Body: HtmlSemantico },
-  { ...comoEscribirContenido, Body: ComoEscribirContenido },
-  { ...saas, Body: SaaS },
-  { ...disenoResponsive, Body: DisenoResponsive },
-  { ...schemaMarkup, Body: SchemaMarkup },
+  { locale: defaultLocale, ...cuantoCuesta, Body: CuantoCuesta },
+  { locale: defaultLocale, ...desarrolloVsWordpress, Body: DesarrolloVsWordpress },
+  { locale: defaultLocale, ...seoOnCode, Body: SeoOnCode },
+  { locale: defaultLocale, ...coreWebVitals, Body: CoreWebVitals },
+  { locale: defaultLocale, ...tiposDeWeb, Body: TiposDeWeb },
+  { locale: defaultLocale, ...mantenimiento, Body: Mantenimiento },
+  { locale: defaultLocale, ...hostingWeb, Body: HostingWeb },
+  { locale: defaultLocale, ...htmlSemantico, Body: HtmlSemantico },
+  { locale: defaultLocale, ...comoEscribirContenido, Body: ComoEscribirContenido },
+  { locale: defaultLocale, ...saas, Body: SaaS },
+  { locale: defaultLocale, ...disenoResponsive, Body: DisenoResponsive },
+  { locale: defaultLocale, ...schemaMarkup, Body: SchemaMarkup },
 ];
 
 /**
@@ -51,29 +56,38 @@ export function isPublished(post: { publishedAt: string }, now = new Date()): bo
   return new Date(`${post.publishedAt}T00:00:00-03:00`) <= now;
 }
 
-/** Publicados, del más reciente al más antiguo. */
-export function publishedPosts(now = new Date()): Post[] {
+/** Publicados en un idioma, del más reciente al más antiguo. */
+export function publishedPosts(locale: Locale = defaultLocale, now = new Date()): Post[] {
   return allPosts
-    .filter((p) => isPublished(p, now))
+    .filter((p) => p.locale === locale && isPublished(p, now))
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
-export function getPost(slug: string): Post | undefined {
-  return allPosts.find((p) => p.slug === slug);
+export function getPost(slug: string, locale: Locale = defaultLocale): Post | undefined {
+  return allPosts.find((p) => p.slug === slug && p.locale === locale);
 }
 
-/** Hasta `limit` artículos publicados distintos del actual. */
-export function relatedPosts(slug: string, limit = 3, now = new Date()): Post[] {
-  return publishedPosts(now)
+/** Hasta `limit` artículos publicados del mismo idioma, distintos del actual. */
+export function relatedPosts(
+  slug: string,
+  limit = 3,
+  locale: Locale = defaultLocale,
+  now = new Date()
+): Post[] {
+  return publishedPosts(locale, now)
     .filter((p) => p.slug !== slug)
     .slice(0, limit);
 }
 
-export function formatDate(iso: string): string {
-  return new Date(`${iso}T00:00:00-03:00`).toLocaleDateString("es-AR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "America/Argentina/Buenos_Aires",
-  });
+/** Formato de fecha propio de cada idioma; la zona horaria es siempre la nuestra. */
+export function formatDate(iso: string, locale: Locale = defaultLocale): string {
+  return new Date(`${iso}T00:00:00-03:00`).toLocaleDateString(
+    locale === "en" ? "en-US" : "es-AR",
+    {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "America/Argentina/Buenos_Aires",
+    }
+  );
 }

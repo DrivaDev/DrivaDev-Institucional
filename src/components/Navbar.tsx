@@ -4,19 +4,36 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import {
+  localeName,
+  otherLocale,
+  path,
+  switchLocalePath,
+  type Locale,
+} from "@/lib/i18n";
+import type { Dictionary } from "@/content/i18n";
 
-const navLinks = [
-  { label: "Inicio", href: "/" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Portafolio", href: "/portafolio" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contacto", href: "/contacto" },
-];
+type Props = {
+  locale: Locale;
+  /** Solo la rama `nav` del diccionario: el resto no viaja al cliente. */
+  t: Dictionary["nav"];
+};
 
-export default function Navbar() {
+export default function Navbar({ locale, t }: Props) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const navLinks = [
+    { label: t.home, href: path("home", locale) },
+    { label: t.services, href: path("services", locale) },
+    { label: t.portfolio, href: path("portfolio", locale) },
+    { label: t.blog, href: path("blog", locale) },
+    { label: t.contact, href: path("contact", locale) },
+  ];
+
+  const other = otherLocale(locale);
+  const alternateHref = switchLocalePath(pathname ?? "/", other);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -33,8 +50,8 @@ export default function Navbar() {
       }`}
       style={{ zIndex: 50 }}
     >
-      <nav className="container-main flex items-center justify-between py-3 h-18" aria-label="Navegación principal">
-        <Link href="/" className="flex items-center gap-2.5 group" aria-label="Driva Dev, ir al inicio">
+      <nav className="container-main flex items-center justify-between py-3 h-18" aria-label={t.ariaMain}>
+        <Link href={path("home", locale)} className="flex items-center gap-2.5 group" aria-label={t.ariaLogo}>
           <Image
             src="/isotipo.svg"
             alt="Driva Dev"
@@ -64,8 +81,24 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
-          <Link href="/contacto" className="btn-primary !py-2.5 !px-6 !text-sm ml-2">
-            Solicitar proyecto
+
+          {/* El cambio de idioma cruza dos root layouts, así que va con <a>:
+              un <Link> intentaría una navegación de cliente que Next
+              igualmente resuelve con recarga completa. */}
+          <a
+            href={alternateHref}
+            hrefLang={other}
+            className="flex items-center gap-1.5 text-sm font-medium text-white/65 hover:text-principal transition-colors"
+            aria-label={t.switchLanguage}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            {other.toUpperCase()}
+          </a>
+
+          <Link href={path("contact", locale)} className="btn-primary !py-2.5 !px-6 !text-sm ml-1">
+            {t.cta}
           </Link>
         </div>
 
@@ -73,7 +106,7 @@ export default function Navbar() {
         <button
           className="md:hidden p-2 rounded-lg text-white/70 hover:text-white transition-colors"
           onClick={() => setOpen(!open)}
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-label={open ? t.closeMenu : t.openMenu}
           aria-expanded={open}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,8 +132,19 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
-          <Link href="/contacto" className="btn-primary text-center mt-2">
-            Solicitar proyecto
+          <a
+            href={alternateHref}
+            hrefLang={other}
+            className="flex items-center gap-2 text-base font-medium text-white/70"
+            aria-label={t.switchLanguage}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            {localeName[other]}
+          </a>
+          <Link href={path("contact", locale)} className="btn-primary text-center mt-2">
+            {t.cta}
           </Link>
         </div>
       )}

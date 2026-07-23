@@ -6,10 +6,10 @@ export function whatsappHref(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-/** Para CTAs genéricos, cuando no hay contexto de qué estaba leyendo. */
-export const WHATSAPP_DEFAULT_MESSAGE =
-  "Hola! Quería hacerles una consulta sobre un proyecto web.";
-
-/** Para los enlaces dentro de los artículos del blog. */
+/**
+ * Para los enlaces dentro de los artículos del blog, que hoy son todos en
+ * español. El resto de los mensajes vive en el diccionario de cada idioma
+ * (`content/i18n/*.ts`, rama `whatsapp`).
+ */
 export const WHATSAPP_BLOG_MESSAGE =
   "Hola! Los encontré por el blog de Driva Dev y quería hacerles una consulta.";

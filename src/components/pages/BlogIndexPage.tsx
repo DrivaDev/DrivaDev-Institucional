@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import RootFigure from "@/components/RootFigure";
@@ -11,48 +10,35 @@ import {
   formatDate,
   publishedPosts,
 } from "@/content/blog/posts";
-import { WHATSAPP_BLOG_MESSAGE } from "@/lib/whatsapp";
+import { getDictionary } from "@/content/i18n";
+import { absoluteUrl, hreflang, path, routeUrl, SITE_URL, type Locale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Blog de Desarrollo Web y SEO",
-  description:
-    "Artículos sobre desarrollo web, SEO, velocidad y negocio digital. Escritos por Driva Dev, desarrolladores de software en Argentina. Sin humo ni recetas mágicas.",
-  openGraph: {
-    title: "Blog de Desarrollo Web y SEO | Driva Dev",
-    description: "Artículos sobre desarrollo web, SEO y negocio digital, escritos por desarrolladores.",
-    url: "https://drivadev.com.ar/blog",
-  },
-  alternates: { canonical: "https://drivadev.com.ar/blog" },
-};
-
-// Revalidar cada hora: así los artículos programados aparecen solos
-// el lunes que corresponde, sin necesidad de un nuevo despliegue.
-export const revalidate = 3600;
-
-export default function BlogPage() {
-  const posts = publishedPosts();
+export default function BlogIndexPage({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale);
+  const t = dict.blog;
+  const posts = publishedPosts(locale);
   const [featured, ...rest] = posts;
+  const blogBase = path("blog", locale);
 
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "Blog de Driva Dev",
-    description:
-      "Artículos sobre desarrollo web, SEO, velocidad y negocio digital escritos por Driva Dev.",
-    url: "https://drivadev.com.ar/blog",
-    inLanguage: "es-AR",
+    name: t.schemaName,
+    description: t.schemaDescription,
+    url: routeUrl("blog", locale),
+    inLanguage: hreflang[locale],
     publisher: {
       "@type": "Organization",
       name: "Driva Dev",
-      url: "https://drivadev.com.ar",
+      url: SITE_URL,
     },
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,
       description: post.description,
       datePublished: post.publishedAt,
-      url: `https://drivadev.com.ar/blog/${post.slug}`,
-      image: `https://drivadev.com.ar${coverSrc(post.slug)}`,
+      url: absoluteUrl(`${blogBase}/${post.slug}`),
+      image: `${SITE_URL}${coverSrc(post.slug)}`,
     })),
   };
 
@@ -60,8 +46,8 @@ export default function BlogPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://drivadev.com.ar" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://drivadev.com.ar/blog" },
+      { "@type": "ListItem", position: 1, name: dict.nav.home, item: routeUrl("home", locale) },
+      { "@type": "ListItem", position: 2, name: t.breadcrumb, item: routeUrl("blog", locale) },
     ],
   };
 
@@ -77,22 +63,20 @@ export default function BlogPage() {
             <ScrollReveal>
               <div className="max-w-3xl">
                 <span className="inline-block text-xs font-bold uppercase tracking-widest text-principal mb-5 px-3 py-1 bg-principal/15 border border-principal/30 rounded-full">
-                  Blog
+                  {t.hero.badge}
                 </span>
                 <h1 className="text-4xl md:text-6xl font-bold text-acento leading-tight mb-6">
-                  Desarrollo web, SEO y negocio digital
+                  {t.hero.heading}
                 </h1>
                 <p className="text-lg text-white/65 leading-relaxed max-w-2xl">
-                  Escribimos sobre lo que hacemos todos los días: cómo se construye un sitio
-                  rápido, qué mira Google de verdad y cómo decidir en qué gastar tu presupuesto.
-                  Sin humo ni recetas mágicas.
+                  {t.hero.body}
                 </p>
               </div>
             </ScrollReveal>
 
             <RootFigure
               src="/root-leyendo.webp"
-              alt="Root, la mascota de Driva Dev, leyendo un libro"
+              alt={t.hero.rootAlt}
               width={600}
               height={694}
             />
@@ -103,7 +87,7 @@ export default function BlogPage() {
       {posts.length === 0 ? (
         <section className="section">
           <div className="container-main">
-            <p className="text-white/60">Todavía no publicamos ningún artículo. Volvé pronto.</p>
+            <p className="text-white/60">{t.empty}</p>
           </div>
         </section>
       ) : (
@@ -112,12 +96,12 @@ export default function BlogPage() {
           <section className="pb-4" aria-labelledby="destacado-heading">
             <div className="container-main">
               <h2 id="destacado-heading" className="sr-only">
-                Artículo más reciente
+                {t.srFeatured}
               </h2>
               <ScrollReveal className="max-w-3xl mx-auto">
                 {/* La fila la mide el texto: la imagen se estira hasta ese alto
                     y recorta, nunca lo empuja hacia abajo. */}
-                <Link href={`/blog/${featured.slug}`} className="card-project block group">
+                <Link href={`${blogBase}/${featured.slug}`} className="card-project block group">
                   <div className="grid gap-6 md:grid-cols-[2fr_3fr] md:items-stretch">
                     <Image
                       src={coverSrc(featured.slug)}
@@ -137,10 +121,10 @@ export default function BlogPage() {
                           dateTime={featured.publishedAt}
                           className="text-xs text-white/40"
                         >
-                          {formatDate(featured.publishedAt)}
+                          {formatDate(featured.publishedAt, locale)}
                         </time>
                         <span className="text-xs text-white/40">
-                          {featured.readingMinutes} min de lectura
+                          {featured.readingMinutes} {dict.common.minRead}
                         </span>
                       </div>
                       <h3 className="text-xl md:text-2xl font-bold text-acento leading-snug mb-3 group-hover:text-principal transition-colors">
@@ -150,7 +134,7 @@ export default function BlogPage() {
                         {featured.description}
                       </p>
                       <span className="inline-flex items-center gap-1.5 text-sm font-bold text-principal group-hover:gap-3 transition-all">
-                        Leer artículo
+                        {dict.common.readArticle}
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                         </svg>
@@ -167,12 +151,12 @@ export default function BlogPage() {
             <section className="section" aria-labelledby="todos-heading">
               <div className="container-main">
                 <h2 id="todos-heading" className="sr-only">
-                  Todos los artículos
+                  {t.srAll}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {rest.map((post, i) => (
                     <ScrollReveal key={post.slug} delay={(i % 3) * 90}>
-                      <Link href={`/blog/${post.slug}`} className="card-project block h-full group">
+                      <Link href={`${blogBase}/${post.slug}`} className="card-project block h-full group">
                         <article className="flex flex-col h-full">
                           <Image
                             src={coverSrc(post.slug)}
@@ -187,7 +171,7 @@ export default function BlogPage() {
                               {post.category}
                             </span>
                             <span className="text-xs text-white/35">
-                              {post.readingMinutes} min
+                              {post.readingMinutes} {dict.common.min}
                             </span>
                           </div>
                           <h3 className="text-lg font-bold text-acento leading-snug mb-2.5 group-hover:text-principal transition-colors">
@@ -200,7 +184,7 @@ export default function BlogPage() {
                             dateTime={post.publishedAt}
                             className="text-xs text-white/35 mt-5 block"
                           >
-                            {formatDate(post.publishedAt)}
+                            {formatDate(post.publishedAt, locale)}
                           </time>
                         </article>
                       </Link>
@@ -218,13 +202,12 @@ export default function BlogPage() {
         <div className="container-main text-center">
           <ScrollReveal>
             <h2 id="cta-blog" className="text-3xl md:text-4xl font-bold text-acento mb-5">
-              ¿Querés aplicar todo esto a tu sitio?
+              {t.cta.heading}
             </h2>
             <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed">
-              Escribimos estos artículos porque es exactamente lo que hacemos en cada proyecto.
-              Contanos el tuyo y lo vemos juntos.
+              {t.cta.body}
             </p>
-            <WhatsAppCTA label="Escribinos por WhatsApp" message={WHATSAPP_BLOG_MESSAGE} />
+            <WhatsAppCTA locale={locale} label={t.cta.button} message={dict.whatsapp.blog} />
           </ScrollReveal>
         </div>
       </section>
