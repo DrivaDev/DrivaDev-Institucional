@@ -40,7 +40,7 @@ const en: typeof es = {
     cta: "Start a project",
     openMenu: "Open menu",
     closeMenu: "Close menu",
-    switchLanguage: "Ver el sitio en español",
+    switchLanguage: "Change language",
   },
 
   footer: {

@@ -39,7 +39,8 @@ const es = {
     cta: "Solicitar proyecto",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
-    switchLanguage: "Ver el sitio en inglés",
+    /** `aria-label` del botón que despliega la lista de idiomas. */
+    switchLanguage: "Cambiar idioma",
   },
 
   footer: {

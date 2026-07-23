@@ -82,11 +82,6 @@ export function alternatesFor(key: RouteKey, locale: Locale) {
   return { canonical: routeUrl(key, locale), languages };
 }
 
-/** El otro idioma. Con dos locales alcanza; si se suma un tercero, revisar. */
-export function otherLocale(locale: Locale): Locale {
-  return locale === "es" ? "en" : "es";
-}
-
 /**
  * Equivalente de `pathname` en `target`. Si la página actual no existe en el
  * otro idioma (un artículo del blog, la landing de Buenos Aires), cae a la
